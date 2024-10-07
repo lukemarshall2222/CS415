@@ -4,9 +4,9 @@
  *  Created on: Nov 8, 2020
  *      Author: gguan, Monil
  *
- *	Purpose: The goal of this dynamic helper string struct is to reliably 
- *			 tokenize strings base on different delimeter. Following this structure
- *           would help to keep the code clean.
+ *	Purpose: The goal of this dynamic helper (command_line) struct is to consistently 
+ *			 tokenize strings based on any given delimeter. Following this structure
+ *           will help to keep the code clean.
  *
  */
 
@@ -14,7 +14,7 @@
 #define STRING_PARSER_H_
 
 
-#define _GUN_SOURCE
+#define _GNU_SOURCE
 
 
 typedef struct
@@ -27,12 +27,12 @@ typedef struct
 //based on the delimeter
 int count_token (char* buf, const char* delim);
 
-//This functions can tokenize a string to token arrays base on a specified delimeter,
-//it returns a struct variable
+//This function can tokenize a string to token arrays based on a specified delimeter,
+//it returns a command_line struct
 command_line str_filler (char* buf, const char* delim);
 
 
-//this function safely free all the tokens within the array.
+// this function safely frees all the memory associated with the given command_line struct.
 void free_command_line(command_line* command);
 
 

@@ -1,0 +1,7 @@
+{
+    "makefile.configureOnOpen": false,
+    "files.associations": {
+        "stdio.h": "c",
+        "string_parser.h": "c"
+    }
+}
