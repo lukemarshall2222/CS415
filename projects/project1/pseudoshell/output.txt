@@ -1,0 +1,19 @@
+/home/users/lmarshal/CS415/projects/project1/pseudoshell
+. .. 
+/home/users/lmarshal/CS415/projects/project1/pseudoshell/test
+/home/users/lmarshal/CS415/projects/project1/pseudoshell/test
+. .. input.txt 
+pwd ; mkdir test ; cd test
+sfjlksagjlks;ls; pwd;
+cd .. ; cd test ; pwd
+cp ../input.txt . ; ls ; cat input.txt
+mv input.txt del.txt ; pwd ; ls
+rm del.txt ; ls
+cd .. ; pwd
+ls
+/home/users/lmarshal/CS415/projects/project1/pseudoshell/test
+. .. del.txt 
+. .. 
+/home/users/lmarshal/CS415/projects/project1/pseudoshell
+. .. string_parser.o main.o string_parser.h test input.txt command.c pseudo-shell Makefile string_parser.c main.c command.h test_script.sh command.o output.txt 
+Error! Unrecognized command: sfjlksagjlks

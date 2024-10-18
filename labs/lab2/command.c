@@ -18,12 +18,20 @@ int contains(char* element, char* arr[]) {
 	return 0;
 }
 
+/**
+ * function prints a newline character to stdout
+*/
+void newLine() {
+	write(STDOUT_FILENO, "\n", strlen("\n"));
+}
+
 void lfcat() {
 // High level functionality you need to implement:
 
 	// Get the current directory with getcwd()
-	char *cwd = malloc(255);
-	char* res = getcwd(cwd, 255);
+	int dirNameLen = 1024;
+	char *cwd = malloc(dirNameLen);
+	char* res = getcwd(cwd, dirNameLen);
 	if (res == NULL) {
 		perror("Error getting the current working directory");
 		return;
@@ -39,12 +47,12 @@ void lfcat() {
 	
 	// use a while loop to read the dir with readdir():
 	struct dirent *file;
-	FILE *redirect = freopen("output.txt", "a", stdout);
+	FILE *redirect = freopen("output.txt", "w", stdout);
 	if (redirect == NULL) {
 		perror("Error redirecting stdout to output.txt");
 		return;
 	}
-	errno = 0;
+
 	while ((file = readdir(dir)) != NULL) {
 		// You can debug by printing out the filenames here:
 		// printf("File: %s\n", file->d_name);
@@ -67,18 +75,20 @@ void lfcat() {
 			return;
 		}
 
-		printf("File: %s\n", file->d_name);
+		char *fileOutput;
+		sprintf(fileOutput, "File: %s\n", file->d_name);
+		write(STDOUT_FILENO, fileOutput, strlen(fileOutput));
 		// Read in each line using getline():
 		while (getline(&line, &size, text) != -1) {
 			// Write the line to stdout:
-			printf("%s", line);
+			write(STDOUT_FILENO, line, strlen(line));
 		}
 		// write 80 "-" characters to stdout:
-		printf("\n");
+		newLine();
 		for (int i = 0; i < 80; i++) {
-			printf("-");
+			write(STDOUT_FILENO, "-", strlen("-"));
 		}
-		printf("\n");
+		newLine();
 
 		// close the read file and free/null assign your line buffer
 		fclose(text);

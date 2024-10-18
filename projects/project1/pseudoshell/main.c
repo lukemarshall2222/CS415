@@ -19,9 +19,9 @@
 
 // Function declarations:
 void FileMode(char* fileName);
-void executeCmd(char*** cmd);
+int executeCmd(char*** cmd);
 void interactiveMode();
-void tokenizeAndExecuteCmds(char* line);
+int tokenizeAndExecuteCmds(char* line);
 
 
 int main(int argc, char** argv) {
@@ -67,9 +67,12 @@ void FileMode(char* fileName) {
 
 	char* lineBuf = NULL;
     size_t maxLineLen = 0;
+    int exitFlag = 0;
 	//loop until EOF, tokenizing and executing each command:
 	while (getline(&lineBuf, &maxLineLen, inputFile) != -1) {
-        tokenizeAndExecuteCmds(lineBuf);
+        exitFlag = tokenizeAndExecuteCmds(lineBuf);
+
+        if (exitFlag) break;
 	}
 
     //free line buffer
@@ -97,12 +100,12 @@ void FileMode(char* fileName) {
  * and executing them, outpuitting to stdout
  */
 void interactiveMode() {
-    char* lineBuf;
+    char* lineBuf = NULL;
+    int exitFlag = 0;
     while (1) {
         printf(">>> ");
 
         // read the command line given:
-        lineBuf = NULL;
         size_t maxLineLen = 0;
         ssize_t lineLen = getline(&lineBuf, &maxLineLen, stdin);
         // error checking:
@@ -113,18 +116,26 @@ void interactiveMode() {
             exit(EXIT_FAILURE);
         }
 
-        tokenizeAndExecuteCmds(lineBuf);
+        // parse the input and execute it:
+        exitFlag = tokenizeAndExecuteCmds(lineBuf);
+
+        // free the automatically allocated line buffer:
+        free(lineBuf);
+
+        // check the exit flag:
+        if (exitFlag) break;
+
     }
 
     //free line buffer
-	free(lineBuf);
+	// free(lineBuf);
 }
 
 /**
  * Topkenizes the given line of commands and executes each command in turn, outputting
  * to the output for the given file descriptor
  */
-void tokenizeAndExecuteCmds(char* line) {
+int tokenizeAndExecuteCmds(char* line) {
     /** two types of tokens:
 	  *	 large tokens separted by ";" e.g. "pwd ; mkdir test ;" contains tokens "pwd " and " mkdir test "
       *  Each large token represents the entirety of a command including any args
@@ -143,12 +154,13 @@ void tokenizeAndExecuteCmds(char* line) {
     // tokenize the line and store the tokens in command_list of largeTokenBuffer:
     largeTokenBuffer = str_filler(line, ";");
     if (largeTokenBuffer.num_token == 0) {
-        return;
+        return 0;
     }
     // command_list of largeTokenBuffer now holds at least one command and any args,
     // possibly multiple commands, as an array
 
     // iterate through each large token found in the line
+    int exitFlag = 0;
     for (int i = 0; largeTokenBuffer.command_list[i] != NULL; i++) {
 
         // tokenize large tokens and store them in command_list of smallTokenBuffer:
@@ -160,19 +172,27 @@ void tokenizeAndExecuteCmds(char* line) {
         // possibly a command and its args, as an array
         
         // execute the command:
-        executeCmd(&(smallTokenBuffer.command_list));
+        exitFlag = executeCmd(&(smallTokenBuffer.command_list));
 
         //free small token command_line:
         free_command_line(&smallTokenBuffer);
+
+        // check for exit flag:
+        if (exitFlag) {
+            break;
+        }
     }
 
     //free large token command_line:
     free_command_line(&largeTokenBuffer);
+
+    return exitFlag;
 }
 
-void executeCmd(char*** cmd) {
+int executeCmd(char*** cmd) {
     char** command = *cmd;
     char* keyword = command[0];
+    int exitFlag = 0;
     if (strcmp(keyword, "ls") == 0) { // ls
         if (command[1] != NULL) {
             printf("Error! Unsupported parameters for command: ls\n");
@@ -222,8 +242,9 @@ void executeCmd(char*** cmd) {
             displayFile(command[1]);
         }
     } else if (strcmp(keyword, "exit") == 0) { // exit
-        exit(EXIT_SUCCESS);
+        exitFlag = 1;
     } else { // anything else
         printf("Error! Unrecognized command: %s\n", keyword);
-    }    
+    }
+    return exitFlag;    
 }

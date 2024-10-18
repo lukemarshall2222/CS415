@@ -157,6 +157,9 @@ void copyFile(char *sourcePath, char *destinationPath) {
     if (destination < 0) {
         char* error = "Error! Unable to open/create destination file.\n";
         write(STDERR_FILENO, error, strlen(error));
+        if (allocated) {
+            free(newDest);
+        }
         return;
     }
 
@@ -168,12 +171,18 @@ void copyFile(char *sourcePath, char *destinationPath) {
         if (res < 0) {
             char* error = "Error! Unable to write to destination file.\n";
             write(STDERR_FILENO, error, strlen(error));
+            if (allocated) {
+                free(newDest);
+            }
             return;
         }
     }
     if (readAmount < 0) {
         char* error = "Error! Unable to read source file.\n";
         write(STDERR_FILENO, error, strlen(error));
+        if (allocated) {
+            free(newDest);
+        }
         return;
     }
 
