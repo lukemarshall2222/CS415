@@ -154,6 +154,7 @@ int tokenizeAndExecuteCmds(char* line) {
     // tokenize the line and store the tokens in command_list of largeTokenBuffer:
     largeTokenBuffer = str_filler(line, ";");
     if (largeTokenBuffer.num_token == 0) {
+        free(&largeTokenBuffer);
         return 0;
     }
     // command_list of largeTokenBuffer now holds at least one command and any args,
@@ -166,6 +167,7 @@ int tokenizeAndExecuteCmds(char* line) {
         // tokenize large tokens and store them in command_list of smallTokenBuffer:
         smallTokenBuffer = str_filler(largeTokenBuffer.command_list[i], " ");
         if (smallTokenBuffer.num_token == 0) {
+            free_command_line(&smallTokenBuffer);
             continue;
         }
         // command_list of smallTokenBuffer now holds at least a single command, 
