@@ -132,7 +132,7 @@ void interactiveMode() {
 }
 
 /**
- * Topkenizes the given line of commands and executes each command in turn, outputting
+ * Tokenizes the given line of commands and executes each command in turn, outputting
  * to the output for the given file descriptor
  */
 int tokenizeAndExecuteCmds(char* line) {
@@ -154,7 +154,7 @@ int tokenizeAndExecuteCmds(char* line) {
     // tokenize the line and store the tokens in command_list of largeTokenBuffer:
     largeTokenBuffer = str_filler(line, ";");
     if (largeTokenBuffer.num_token == 0) {
-        free(&largeTokenBuffer);
+        free_command_line(&largeTokenBuffer);
         return 0;
     }
     // command_list of largeTokenBuffer now holds at least one command and any args,
