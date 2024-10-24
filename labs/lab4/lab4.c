@@ -8,25 +8,14 @@ void script_print (pid_t* pid_ary, int size);
 
 int main(int argc, char* argv[])
 {
-	if (argc < 1)
+	if (argc != 2)
 	{
 		printf("Wrong number of arguments\n");
-		exit (0);
+		exit(0);
 	}
 
-	/*
-	*	TODO
-	*	#1	declare child process pool
-	*	#2 	spawn n new processes
-	*		first create the argument needed for the processes
-	*		for example "./iobound -seconds 10"
-	*	#3	call script_print
-	*	#4	wait for children processes to finish
-	*	#5	free any dynamic memory
-	*/
-
 	// Get the number of processes to create from the arguments:
-	int numProcesses = argc == 2 ? 1 : atoi(argv[2]);
+	int numProcesses = atoi(argv[1]);
 	// if it's less than one then just exit:
 	if (numProcesses < 1) {
 		exit(EXIT_SUCCESS);
@@ -34,6 +23,10 @@ int main(int argc, char* argv[])
 
 	// allocate array for holding child process pids:
 	pid_t* childProcessList = (pid_t*) malloc(sizeof(pid_t) * numProcesses);
+	if (childProcessList == NULL) {
+		perror("Error allocating memory for child pid list");
+		exit(EXIT_FAILURE);
+	}
 
 	pid_t pid;
 	// create and run the given number of child processes:
@@ -41,15 +34,25 @@ int main(int argc, char* argv[])
 	for (int i = 0; i < numProcesses; i++) {
 		pid = fork();
 		if (pid == 0) {
-			execvp("./iobound", args);
+			if (execvp("./iobound", args) == -1) {
+                perror("execvp failed");
+                exit(EXIT_FAILURE);
+            }
 		} else if (pid > 0) {
 			childProcessList[i] = pid;
-			waitpid(pid, NULL, 0);
 		} else {
 			perror("call to fork() failed");
+			free(childProcessList);
+			exit(EXIT_FAILURE);
 		}
 	}
 
+	// wait for all child processes to finish:
+    for (int i = 0; i < numProcesses; i++) {
+        waitpid(childProcessList[i], NULL, 0);
+    }
+
+	script_print(childProcessList, numProcesses);
 	free(childProcessList);
 
 	return 0;
