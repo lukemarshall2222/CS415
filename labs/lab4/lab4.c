@@ -1,3 +1,10 @@
+/**
+ * Original Author: Luke Marshall
+ * Last Modified: 10/24/2024
+ * Description: Lab 4 main file
+ */
+
+// Included headers:
 #include<stdio.h>
 #include <sys/types.h>
 #include<stdlib.h>
@@ -8,9 +15,10 @@ void script_print (pid_t* pid_ary, int size);
 
 int main(int argc, char* argv[])
 {
+	// check number of args:
 	if (argc != 2)
 	{
-		printf("Wrong number of arguments\n");
+		printf("Usage: ./lab4 <int>\n");
 		exit(0);
 	}
 
@@ -35,13 +43,13 @@ int main(int argc, char* argv[])
 		pid = fork();
 		if (pid == 0) {
 			if (execvp("./iobound", args) == -1) {
-                perror("execvp failed");
+                perror("Error executing call to execvp()");
                 exit(EXIT_FAILURE);
             }
 		} else if (pid > 0) {
 			childProcessList[i] = pid;
 		} else {
-			perror("call to fork() failed");
+			perror("Error executing call to fork()");
 			free(childProcessList);
 			exit(EXIT_FAILURE);
 		}
@@ -52,7 +60,10 @@ int main(int argc, char* argv[])
         waitpid(childProcessList[i], NULL, 0);
     }
 
+	// run the script:
 	script_print(childProcessList, numProcesses);
+
+	// free the pid array:
 	free(childProcessList);
 
 	return 0;
