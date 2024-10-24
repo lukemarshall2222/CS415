@@ -6,11 +6,11 @@
 
 void script_print (pid_t* pid_ary, int size);
 
-int main(int argc,char*argv[])
+int main(int argc, char* argv[])
 {
-	if (argc != 2)
+	if (argc < 1)
 	{
-		printf ("Wrong number of arguments\n");
+		printf("Wrong number of arguments\n");
 		exit (0);
 	}
 
@@ -25,6 +25,33 @@ int main(int argc,char*argv[])
 	*	#5	free any dynamic memory
 	*/
 
+	// Get the number of processes to create from the arguments:
+	int numProcesses = argc == 2 ? 1 : atoi(argv[2]);
+	// if it's less than one then just exit:
+	if (numProcesses < 1) {
+		exit(EXIT_SUCCESS);
+	}
+
+	// allocate array for holding child process pids:
+	pid_t* childProcessList = (pid_t*) malloc(sizeof(pid_t) * numProcesses);
+
+	pid_t pid;
+	// create and run the given number of child processes:
+	char* args[] = {"./iobound", "-seconds", "5", NULL};
+	for (int i = 0; i < numProcesses; i++) {
+		pid = fork();
+		if (pid == 0) {
+			execvp("./iobound", args);
+		} else if (pid > 0) {
+			childProcessList[i] = pid;
+			waitpid(pid, NULL, 0);
+		} else {
+			perror("call to fork() failed");
+		}
+	}
+
+	free(childProcessList);
+
 	return 0;
 }
 
@@ -32,14 +59,14 @@ int main(int argc,char*argv[])
 void script_print (pid_t* pid_ary, int size)
 {
 	FILE* fout;
-	fout = fopen ("top_script.sh", "w");
+	fout = fopen("top_script.sh", "w");
 	fprintf(fout, "#!/bin/bash\ntop");
 	for (int i = 0; i < size; i++)
 	{
 		fprintf(fout, " -p %d", (int)(pid_ary[i]));
 	}
 	fprintf(fout, "\n");
-	fclose (fout);
+	fclose(fout);
 
 	char* top_arg[] = {"gnome-terminal", "--", "bash", "top_script.sh", NULL};
 	pid_t top_pid;
@@ -48,9 +75,9 @@ void script_print (pid_t* pid_ary, int size)
 	{
 		if (top_pid == 0)
 		{
-			if(execvp(top_arg[0], top_arg) == -1)
+			if (execvp(top_arg[0], top_arg) == -1)
 			{
-				perror ("top command: ");
+				perror("top command: ");
 			}
 			exit(0);
 		}
