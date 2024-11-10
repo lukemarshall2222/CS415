@@ -214,6 +214,9 @@ int main(int argc, char** argv) {
     globalChildProcessList = childProcessList;
     globalChildTrackerList = childTrackerList;
 
+    printf("%-8s %-16s %-8s %-10s %-10s %-10s\n", 
+           "PID", "Name", "PPID", "MemUsage", "IO Calls", "CmdReads");
+
     // start the first child process and set its alarm:
     kill(childProcessList[0], SIGCONT);
     alarm(timeSlice);
