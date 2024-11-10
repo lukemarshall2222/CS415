@@ -276,11 +276,7 @@ void printProcessInfo(pid_t pid) {
     char path[256];
     FILE *file;
 
-    // Fetch executable name and parent PID from `/proc/<pid>/status`
-    char name[64] = "N/A";
-    int ppid = 0;
-    unsigned long memUsage = 0;
-
+    // Verify the process UID matches the current user
     snprintf(path, sizeof(path), "/proc/%d/status", pid);
     file = fopen(path, "r");
     if (file == NULL) {
@@ -288,8 +284,41 @@ void printProcessInfo(pid_t pid) {
         return;
     }
 
-    char line[256];
-    while (fgets(line, sizeof(line), file) != NULL) {
+    int uid = -1;
+    int curr_uid = getuid();
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t read;
+
+    // Read the UID from /proc/<pid>/status
+    while ((read = getline(&line, &len, file)) != -1) {
+        if (strncmp(line, "Uid:", 4) == 0) {
+            sscanf(line, "Uid:\t%d", &uid);
+            break;
+        }
+    }
+    fclose(file);
+
+    // Check if the UID matches the current user
+    if (uid != curr_uid) {
+        printf("Skipping PID %d (not owned by current user)\n", pid);
+        free(line);
+        return;
+    }
+
+    // Fetch executable name, parent PID, and memory usage (VmRSS) from `/proc/<pid>/status`
+    char name[64] = "N/A";
+    int ppid = 0;
+    unsigned long memUsage = 0;
+
+    file = fopen(path, "r");
+    if (file == NULL) {
+        perror("Failed to open /proc/<pid>/status");
+        free(line);
+        return;
+    }
+
+    while ((read = getline(&line, &len, file)) != -1) {
         if (strncmp(line, "Name:", 5) == 0) {
             sscanf(line, "Name:\t%63s", name);
         } else if (strncmp(line, "PPid:", 5) == 0) {
@@ -306,10 +335,11 @@ void printProcessInfo(pid_t pid) {
     file = fopen(path, "r");
     if (file == NULL) {
         perror("Failed to open /proc/<pid>/io");
+        free(line);
         return;
     }
 
-    while (fgets(line, sizeof(line), file) != NULL) {
+    while ((read = getline(&line, &len, file)) != -1) {
         if (strncmp(line, "syscr:", 6) == 0) {
             sscanf(line, "syscr: %lu", &ioReads);
         } else if (strncmp(line, "syscw:", 6) == 0) {
@@ -328,4 +358,6 @@ void printProcessInfo(pid_t pid) {
     // Print the information in table format
     printf("%-8d %-16s %-8d %-10lu %-10lu %-10lu\n",
            pid, name, ppid, memUsage, ioReads + ioWrites, cmdReads);
+
+    free(line);
 }
