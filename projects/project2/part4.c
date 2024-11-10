@@ -295,7 +295,7 @@ void print_process_info(pid_t pid) {
     fclose(fp);
 
     // Parse the line using sscanf
-    int ppid, state, utime, stime, vsize, rss, start_time, nice, itrealvalue, nvcsw, nivcsw, num_threads;
+    int ppid, state, utime, stime, vsize, rss, start_time, nice, itrealvalue, nvcsw, nivcsw, num_threads, _;
     char comm[256];
     sscanf(line, "%d (%s) %c %d %d %d %d %d %d %d %d %d %d %d %d",
            &pid, comm, &state, &ppid, &_, &_, &_, &_, &_, &utime, &stime,
