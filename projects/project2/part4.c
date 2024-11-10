@@ -275,92 +275,50 @@ void alarmHandler(int sig) {
     alarm(timeSlice);
 }
 
-void printProcessInfo(pid_t pid) {
-    char path[256];
-    FILE *file;
+void print_process_info(pid_t pid) {
+    char filename[32];
+    FILE *fp;
+    char line[1024];
 
-    // Verify the process UID matches the current user
-    snprintf(path, sizeof(path), "/proc/%d/status", pid);
-    file = fopen(path, "r");
-    if (file == NULL) {
-        perror("Failed to open /proc/<pid>/status");
+    // Construct the filename for the process's status file
+    snprintf(filename, sizeof(filename), "/proc/%d/stat", pid);
+
+    // Open the file
+    fp = fopen(filename, "r");
+    if (fp == NULL) {
+        perror("fopen");
         return;
     }
 
-    int uid = -1;
-    int curr_uid = getuid();
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t read;
+    // Read the first line, which contains the process information
+    fgets(line, sizeof(line), fp);
+    fclose(fp);
 
-    // Read the UID from /proc/<pid>/status
-    while ((read = getline(&line, &len, file)) != -1) {
-        if (strncmp(line, "Uid:", 4) == 0) {
-            sscanf(line, "Uid:\t%d", &uid);
-            break;
-        }
-    }
-    fclose(file);
+    // Parse the line using sscanf
+    int ppid, state, utime, stime, vsize, rss, start_time, nice, itrealvalue, nvcsw, nivcsw, num_threads;
+    char comm[256];
+    sscanf(line, "%d (%s) %c %d %d %d %d %d %d %d %d %d %d %d %d",
+           &pid, comm, &state, &ppid, &_, &_, &_, &_, &_, &utime, &stime,
+           &vsize, &rss, &_, &start_time, &nice, &itrealvalue, &nvcsw, &nivcsw, &num_threads);
 
-    // Check if the UID matches the current user
-    if (uid != curr_uid) {
-        printf("Skipping PID %d (not owned by current user)\n", pid);
-        free(line);
+    // Get the number of command-line arguments
+    snprintf(filename, sizeof(filename), "/proc/%d/cmdline", pid);
+    fp = fopen(filename, "r");
+    if (fp == NULL) {
+        perror("fopen");
         return;
     }
-
-    // Fetch executable name, parent PID, and memory usage (VmRSS) from `/proc/<pid>/status`
-    char name[64] = "N/A";
-    int ppid = 0;
-    unsigned long memUsage = 0;
-
-    file = fopen(path, "r");
-    if (file == NULL) {
-        perror("Failed to open /proc/<pid>/status");
-        free(line);
-        return;
+    int argc = 0;
+    while (fscanf(fp, "%s", line) != EOF) {
+        argc++;
     }
+    fclose(fp);
 
-    while ((read = getline(&line, &len, file)) != -1) {
-        if (strncmp(line, "Name:", 5) == 0) {
-            sscanf(line, "Name:\t%63s", name);
-        } else if (strncmp(line, "PPid:", 5) == 0) {
-            sscanf(line, "PPid:\t%d", &ppid);
-        } else if (strncmp(line, "VmRSS:", 6) == 0) {
-            sscanf(line, "VmRSS:\t%lu", &memUsage);
-        }
-    }
-    fclose(file);
+    // Calculate IO operations (simplified, assuming only read/write system calls)
+    // For a more accurate count, you'd need to parse /proc/[pid]/io
+    int io_calls = 0; // Placeholder, implement actual calculation
 
-    // Fetch I/O calls from `/proc/<pid>/io`
-    unsigned long ioReads = 0, ioWrites = 0;
-    snprintf(path, sizeof(path), "/proc/%d/io", pid);
-    file = fopen(path, "r");
-    if (file == NULL) {
-        perror("Failed to open /proc/<pid>/io");
-        free(line);
-        return;
-    }
-
-    while ((read = getline(&line, &len, file)) != -1) {
-        if (strncmp(line, "syscr:", 6) == 0) {
-            sscanf(line, "syscr: %lu", &ioReads);
-        } else if (strncmp(line, "syscw:", 6) == 0) {
-            sscanf(line, "syscw: %lu", &ioWrites);
-        }
-    }
-    fclose(file);
-
-    // Calculate the number of command line reads (reads from fd 0)
-    unsigned long cmdReads = 0;
-    snprintf(path, sizeof(path), "/proc/%d/fd/0", pid);
-    if (access(path, F_OK) == 0) {
-        cmdReads = ioReads;  // Assume all reads are from command line input if fd 0 exists
-    }
-
-    // Print the information in table format
-    printf("%-8d %-16s %-8d %-10lu %-10lu %-10lu\n",
-           pid, name, ppid, memUsage, ioReads + ioWrites, cmdReads);
-
-    free(line);
+    // Print the formatted output
+    printf("%-6d %-20s %-6d %-10d %-10d %-10d\n",
+           pid, comm, ppid, vsize / 1024, io_calls, argc);
 }
