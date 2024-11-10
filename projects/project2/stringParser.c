@@ -17,7 +17,7 @@
 
 #define _GNU_SOURCE
 
-int count_token(char* buf, const char* delim)
+int countTokens(char* buf, const char* delim)
 {
 	// check for NULL string:
 	if (buf == NULL) {
@@ -45,7 +45,7 @@ commandLine strFiller(char* buf, const char* delim)
 	strCp = strdup(str);
 
 	// find the number of tokens to create the commandLine struct:
-	int tokenCount = count_token(strCp, delim);
+	int tokenCount = countTokens(strCp, delim);
 	free(strCp);
 
 	// declare commandLine struct, allocate memory for cmdList for number of tokens, 

@@ -1,9 +1,23 @@
-ls -a -r -s
-
-sleep 1
-
-invalid name
-
-./iobound -seconds 10
-
-./cpubound -seconds 10
+total 459
+  1 .vscode
+  7 stringParser.c
+367 project-2-description-fall-2024.pdf
+  1 part5.c
+  1 part4.c
+  1 part3.c
+  7 part2.c
+ 12 part2
+  7 part1.c
+  7 part1
+  1 output.txt
+  7 MCP.h
+  7 Makefile
+  7 iobound.c
+  7 iobound
+  1 input.txt
+  7 cpubound.c
+  7 cpubound
+  1 ..
+ 12 .
+Process: 1097827 - Begining to write to file.
+Process: 1097827 - Finished.

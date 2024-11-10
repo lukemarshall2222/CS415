@@ -7,7 +7,7 @@
  * Univversity of Oregon Fall CS 415 Operating Systems course.
  */
 
-// Include header files:
+// Included header files:
 #include "MCP.h"
 #include <unistd.h>
 #include <string.h>
@@ -31,9 +31,7 @@ int main(int argc, char** argv) {
     // error checking:
     if (inputFile == NULL) {
         // Error:
-        char buf[256];
-        snprintf(buf, sizeof(buf),  "Error. Failed to open given input file: %s\n", argv[1]);
-        write(STDERR_FILENO, buf, strlen(buf)+1);
+        perror("Error. Failed to open given input file");
         exit(EXIT_FAILURE);
     }
 
@@ -54,8 +52,7 @@ int main(int argc, char** argv) {
     // error checking:
     if (childProcessList == NULL) {
         // Error:
-        char* buf = "Error. Failed to allocate memory for the pid array.\n";
-		write(STDERR_FILENO, buf, strlen(buf)+1);
+        perror("Error. Failed to allocate memory for the pid array.");
 
         // Cleanup:
         fclose(inputFile);
@@ -71,9 +68,7 @@ int main(int argc, char** argv) {
         // error checking:
         if (res < 0) {
             // Error:
-            char buf[256];
-            snprintf(buf, sizeof(buf),  "Error. Failed to retrieve command from line %d\n", i);
-            write(STDERR_FILENO, buf, strlen(buf)+1);
+            perror("Error. Failed to retrieve command");
 
             // Cleanup:
             free(childProcessList);
@@ -87,9 +82,7 @@ int main(int argc, char** argv) {
         // error checking:
         if (command.tokenCount == 0) {
             // Error:
-            char buf[256];
-            snprintf(buf, sizeof(buf),  "Error. No command found on line %d\n", i);
-            write(STDERR_FILENO, buf, strlen(buf)+1);
+            perror("Error. No command found");
 
             // Cleanup:
             freeCmdLine(&command);
@@ -101,11 +94,10 @@ int main(int argc, char** argv) {
 
         pid_t pid = fork();
 		if (pid == 0) { // child is executing:
+            printf("calling command %s in child process %d\n", command.cmdList[0], getpid());
 			if (execvp(command.cmdList[0], command.cmdList) == -1) {
-                // Error:
-                char buf[256];
-                snprintf(buf, sizeof(buf), "Error. Failed in executing call to execvp with command: %s\n", command.cmdList[0]);
-                write(STDERR_FILENO, buf, strlen(buf)+1);
+                // Error:                
+                perror("Error. Failed in executing call to execvp");
 
                 // Cleanup:
                 freeCmdLine(&command);
@@ -118,8 +110,7 @@ int main(int argc, char** argv) {
 			childProcessList[i] = pid;
 		} else { // error checking:
             // Error:
-			char* buf = "Error executing call to fork\n";
-            write(STDERR_FILENO, buf, strlen(buf)+1);
+            perror("Error executing call to fork");
 
             // Cleanup:
             freeCmdLine(&command);
@@ -138,12 +129,12 @@ int main(int argc, char** argv) {
 
     // wait for all the children to finish:
     for (int j = 0; j < cmdCount; j++) {
+        printf("waiting for process %d\n", childProcessList[j]);
         res = waitpid(childProcessList[j], NULL, 0);
         // error checking:
         if (res < 0) {
             // Error:
-            char* buf = "Error. Failed call to wait.\n";
-            write(STDERR_FILENO, buf, strlen(buf)+1);
+            perror("Error. Failed call to wait");
 
             // Cleanup:
             free(childProcessList);
@@ -153,5 +144,6 @@ int main(int argc, char** argv) {
 
     // Cleanup:
     free(childProcessList);
+    printf("Finished executing all child processes...exiting\n");
     exit(EXIT_SUCCESS);
 }

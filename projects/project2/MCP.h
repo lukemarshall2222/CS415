@@ -25,7 +25,7 @@ typedef struct
  * this function returns the number of tokens in the given string
  * based on the delimeter
 */
-int count_token(char* buf, const char* delim);
+int countTokens(char* buf, const char* delim);
 
 /**
  * This function tokenizes a string based on a specified delimeter, and adds the tokens to an array

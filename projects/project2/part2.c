@@ -2,12 +2,12 @@
  * File: part2.c
  * Original Author: Luke Marshall
  * Created on: 10/31/2024
- * Last modified: 10/31/2024 by Luke Marshall
- * Description: File containing the code for MCPv1 for part 2 of project 2 in the 
+ * Last modified: 11/10/2024 by Luke Marshall
+ * Description: File containing the code for MCPv2 for part 2 of project 2 in the 
  * University of Oregon Fall CS 415 Operating Systems course.
  */
 
-// Include header files:
+// Included header files:
 #include "MCP.h"
 #include <unistd.h>
 #include <string.h>
@@ -32,9 +32,7 @@ int main(int argc, char** argv) {
     // error checking:
     if (inputFile == NULL) {
         // Error:
-        char buf[256];
-        snprintf(buf, sizeof(buf),  "Error. Failed to open given input file: %s\n", argv[1]);
-        write(STDERR_FILENO, buf, strlen(buf)+1);
+        perror("Error. Failed to open given input file");
         exit(EXIT_FAILURE);
     }
 
@@ -55,8 +53,7 @@ int main(int argc, char** argv) {
     // error checking:
     if (childProcessList == NULL) {
         // Error:
-        char* buf = "Error. Failed to allocate memory for the pid array.\n";
-		write(STDERR_FILENO, buf, strlen(buf)+1);
+        perror("Error. Failed to allocate memory for the pid array");
 
         // Cleanup:
         fclose(inputFile);
@@ -72,9 +69,7 @@ int main(int argc, char** argv) {
         // error checking:
         if (res < 0) {
             // Error:
-            char buf[256];
-            snprintf(buf, sizeof(buf),  "Error. Failed to retrieve command from line %d\n", i);
-            write(STDERR_FILENO, buf, strlen(buf)+1);
+            perror("Error. Failed to retrieve command");
 
             // Cleanup:
             free(childProcessList);
@@ -88,9 +83,7 @@ int main(int argc, char** argv) {
         // error checking:
         if (command.tokenCount == 0) {
             // Error:
-            char buf[256];
-            snprintf(buf, sizeof(buf),  "Error. No command found on line %d\n", i);
-            write(STDERR_FILENO, buf, strlen(buf)+1);
+            perror("Error. No command found");
 
             // Cleanup:
             freeCmdLine(&command);
@@ -109,11 +102,10 @@ int main(int argc, char** argv) {
             sigprocmask(SIG_BLOCK, &sigSet, NULL);
             int sig;
             if (sigwait(&sigSet, &sig) == 0) { 
+                printf("calling command %s in child process %d\n", command.cmdList[0], getpid());
                 if (execvp(command.cmdList[0], command.cmdList) == -1) {
                     // Error:
-                    char buf[256];
-                    snprintf(buf, sizeof(buf), "Error. Failed in executing call to execvp with command: %s\n", command.cmdList[0]);
-                    write(STDERR_FILENO, buf, strlen(buf)+1);
+                    perror("Error. Failed in executing call to execvp");
 
                     // Cleanup:
                     freeCmdLine(&command);
@@ -124,9 +116,7 @@ int main(int argc, char** argv) {
                 }
             } else { // sigwait failed
                 // Error:
-                char buf[256];
-                snprintf(buf, sizeof(buf), "Error. Failed in executing call to sigwait with command: %s\n", command.cmdList[0]);
-                write(STDERR_FILENO, buf, strlen(buf)+1);
+                perror("Error. Failed in executing call to sigwait");
 
                 // Cleanup:
                 freeCmdLine(&command);
@@ -139,8 +129,7 @@ int main(int argc, char** argv) {
             childProcessList[i] = pid;
         } else { // error checking:
             // Error:
-            char* buf = "Error executing call to fork\n";
-            write(STDERR_FILENO, buf, strlen(buf)+1);
+            perror("Error executing call to fork");
 
             // Cleanup:
             freeCmdLine(&command);
@@ -157,65 +146,62 @@ int main(int argc, char** argv) {
     free(line);
     fclose(inputFile);
 
-    // wait for all the children to finish:
+    // signal all children to restart:
     for (int j = 0; j < cmdCount; j++) {
         // signal the process to start:
+        printf("restarting child process %d\n", childProcessList[j]);
         if (kill(childProcessList[j], SIGUSR1) < 0) {
             // Error:
-            char* buf = "Error. Failed call to kill with start signal.\n";
-            write(STDERR_FILENO, buf, strlen(buf)+1);
+            perror("Error. Failed call to kill with start signal");
 
             // Cleanup:
             free(childProcessList);
             exit(EXIT_FAILURE);
         }
-        printf("starting process: %d\n", childProcessList[j]);
+        sleep(0.5);
     }
 
     for (int k = 0; k < cmdCount; k++) {
         // signal the process to stop:
+        printf("stopping child process %d\n", childProcessList[k]);
         if (kill(childProcessList[k], SIGSTOP) < 0) {
             // Error:
-            char* buf = "Error. Failed call to kill with stop signal.\n";
-            write(STDERR_FILENO, buf, strlen(buf)+1);
+            perror("Error. Failed call to kill with stop signal");
 
             // Cleanup:
             free(childProcessList);
             exit(EXIT_FAILURE);
         }
-        printf("pausing process: %d\n", childProcessList[k]);
     }
 
     for (int l = 0; l < cmdCount; l++) {
         // signal the process to stop:
+        printf("continuing child process %d\n", childProcessList[l]);
         if (kill(childProcessList[l], SIGCONT) < 0) {
             // Error:
-            char* buf = "Error. Failed call to kill with continue signal.\n";
-            write(STDERR_FILENO, buf, strlen(buf)+1);
+            perror("Error. Failed call to kill with continue signal");
 
             // Cleanup:
             free(childProcessList);
             exit(EXIT_FAILURE);
         }
-        printf("continuing process: %d\n", childProcessList[l]);
     }
 
     for (int m = 0; m < cmdCount; m++) {
         // wait for process to end:
+        printf("restarting child process %d\n", childProcessList[m]);
         if (waitpid(childProcessList[m], NULL, 0) < 0) {
             // Error:
-            char* buf = "Error. Failed call to wait.\n";
-            write(STDERR_FILENO, buf, strlen(buf)+1);
+            perror("Error. Failed call to wait");
 
             // Cleanup:
             free(childProcessList);
             exit(EXIT_FAILURE);
         }
-        printf("waiting for process: %d\n", childProcessList[m]);
     }
-    printf("all done waiting..exiting\n");
 
     // Cleanup:
     free(childProcessList);
+    printf("Finished executing all child processes...exiting\n");
     exit(EXIT_SUCCESS);
 }
