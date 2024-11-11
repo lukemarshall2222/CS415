@@ -281,7 +281,7 @@ int main(int argc, char** argv) {
     free(globalChildProcessList);
     free(globalChildTrackerList);
     free(timeSliceList);
-    // printf("Finished executing all child processes...exiting\n");
+    printf("Finished executing all child processes...exiting\n");
     exit(EXIT_SUCCESS);
 }
 
