@@ -235,8 +235,6 @@ int main(int argc, char** argv) {
                 }
             }
         }
-
-        usleep(10000); 
     }
 
     // cleanup:
@@ -260,7 +258,6 @@ void alarmHandler(int sig) {
         increments++;
         i = (i + 1) % numChildren;
     }
-    if (increments > numChildren) exit(EXIT_SUCCESS);
 
     // Start the next process
     currRunningChild = i;
