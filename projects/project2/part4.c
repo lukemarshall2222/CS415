@@ -1,5 +1,5 @@
 /**
- * File: part2.c
+ * File: part4.c
  * Original Author: Luke Marshall
  * Created on: 11/10/2024
  * Last modified: 11/10/2024 by Luke Marshall
@@ -254,10 +254,13 @@ void alarmHandler(int sig) {
     printProcessInfo(globalChildProcessList[currRunningChild]);
 
     // Find the next process that is still running
+    int increments = 0;
     int i = (currRunningChild + 1) % numChildren;
     while (!globalChildTrackerList[i]) {
+        increments++;
         i = (i + 1) % numChildren;
     }
+    if (increments > numChildren) exit(EXIT_SUCCESS);
 
     // Start the next process
     currRunningChild = i;
