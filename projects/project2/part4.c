@@ -190,7 +190,7 @@ int main(int argc, char** argv) {
             free(childProcessList);
             exit(EXIT_FAILURE);
         }
-        sleep(1);
+        sleep(0.5);
     }
 
     for (int k = 0; k < cmdCount; k++) {
