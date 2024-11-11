@@ -190,7 +190,7 @@ int main(int argc, char** argv) {
             free(childProcessList);
             exit(EXIT_FAILURE);
         }
-        sleep(0.5);
+        sleep(1);
     }
 
     for (int k = 0; k < cmdCount; k++) {
@@ -242,7 +242,7 @@ int main(int argc, char** argv) {
     // cleanup:
     free(globalChildProcessList);
     free(globalChildTrackerList);
-    // printf("Finished executing all child processes...exiting\n");
+    printf("Finished executing all child processes...exiting\n");
     exit(EXIT_SUCCESS);
 }
 
