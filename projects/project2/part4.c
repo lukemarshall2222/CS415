@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
     // check the number of arguments:
     if (argc < 2 || argc > 3) {
         // Error:
-        char* buf = "Usage: ./part2 <filename>\n";
+        char* buf = "Usage: ./part2 <filename> <time slice?>\n";
         write(STDERR_FILENO, buf, strlen(buf)+1);
         exit(EXIT_FAILURE);
     }
@@ -136,7 +136,6 @@ int main(int argc, char** argv) {
             sigprocmask(SIG_BLOCK, &sigSet, NULL);
             int sig;
             if (sigwait(&sigSet, &sig) == 0) { 
-                // printf("calling command %s in child process %d\n", command.cmdList[0], getpid());
                 if (execvp(command.cmdList[0], command.cmdList) == -1) {
                     // Error:
                     perror("Error. Failed in executing call to execvp");
@@ -183,7 +182,6 @@ int main(int argc, char** argv) {
     // signal all children to restart:
     for (int j = 0; j < cmdCount; j++) {
         // signal the process to start:
-        // printf("beginning child process %d\n", childProcessList[j]);
         if (kill(childProcessList[j], SIGUSR1) < 0) {
             // Error:
             perror("Error. Failed call to kill with start signal");
@@ -197,7 +195,6 @@ int main(int argc, char** argv) {
 
     for (int k = 0; k < cmdCount; k++) {
         // signal the process to stop:
-        // printf("stopping child process %d\n", childProcessList[k]);
         if (kill(childProcessList[k], SIGSTOP) < 0) {
             // Error:
             perror("Error. Failed call to kill with stop signal");
@@ -213,9 +210,6 @@ int main(int argc, char** argv) {
     numRunningChildren = cmdCount;
     globalChildProcessList = childProcessList;
     globalChildTrackerList = childTrackerList;
-
-    printf("%-8s %-16s %-8s %-10s %-10s %-10s\n", 
-           "PID", "Name", "PPID", "MemUsage", "IO Calls", "CmdReads");
 
     // start the first child process and set its alarm:
     kill(childProcessList[0], SIGCONT);
@@ -254,11 +248,10 @@ int main(int argc, char** argv) {
 
 void alarmHandler(int sig) {
     // Stop the currently running process
-    // printf("alarm signaled, stopping child process %d\n", globalChildProcessList[currRunningChild]);
     kill(globalChildProcessList[currRunningChild], SIGSTOP);
 
     // print the process info:
-    printProcessInfo(currRunningChild);
+    printProcessInfo(globalChildProcessList[currRunningChild]);
 
     // Find the next process that is still running
     int i = (currRunningChild + 1) % numChildren;
@@ -268,57 +261,109 @@ void alarmHandler(int sig) {
 
     // Start the next process
     currRunningChild = i;
-    // printf("begin time slice, starting child process %d\n", globalChildProcessList[currRunningChild]);
     kill(globalChildProcessList[currRunningChild], SIGCONT);
     
     // Set the next alarm
     alarm(timeSlice);
 }
 
-void print_process_info(pid_t pid) {
-    char filename[32];
-    FILE *fp;
-    char line[1024];
+void printProcessInfo(pid_t pid) {
+    char filename[64];
 
-    // Construct the filename for the process's status file
+    // ---------- stat file ------------------------------------------
+
+    // make stat filename for the given pid:
     snprintf(filename, sizeof(filename), "/proc/%d/stat", pid);
 
-    // Open the file
-    fp = fopen(filename, "r");
-    if (fp == NULL) {
-        perror("fopen");
+    // Open the stat file
+    FILE* statFile = fopen(filename, "r");
+    if (statFile == NULL) {
+        perror("Error. failed call to fopen to open /proc<pid>/stat");
         return;
     }
 
-    // Read the first line, which contains the process information
-    fgets(line, sizeof(line), fp);
-    fclose(fp);
+    char* line = NULL;
+    size_t len = 0;
+    // Read line in /stat:
+    getline(&line, &len, statFile);
+    fclose(statFile);
 
-    // Parse the line using sscanf
-    int ppid, state, utime, stime, vsize, rss, start_time, nice, itrealvalue, nvcsw, nivcsw, num_threads, _;
-    char comm[256];
-    sscanf(line, "%d (%s) %c %d %d %d %d %d %d %d %d %d %d %d %d",
-           &pid, comm, &state, &ppid, &_, &_, &_, &_, &_, &utime, &stime,
-           &vsize, &rss, &_, &start_time, &nice, &itrealvalue, &nvcsw, &nivcsw, &num_threads);
+    // Parse the line:
+    char name[64];
+    sscanf(line, "%*d (%255[^)])", name);
 
-    // Get the number of command-line arguments
-    snprintf(filename, sizeof(filename), "/proc/%d/cmdline", pid);
-    fp = fopen(filename, "r");
-    if (fp == NULL) {
-        perror("fopen");
+    int PID, PPID, tmp2, tmp3, tmp4, tmp5;
+    unsigned int tmp6;
+    unsigned long tmp7, tmp8, tmp9, tmp10, utime, stime;
+
+    // Parse up to the required fields, then capture utime and stime
+    sscanf(line, "%d %*s %*c %d %d %d %d %d %u %lu %lu %lu %lu %lu %lu",
+           &PID, &PPID, &tmp2, &tmp3, &tmp4, &tmp5, &tmp6, &tmp7, &tmp8,
+           &tmp9, &tmp10, &utime, &stime);
+
+    free(line);
+
+    
+    // -------------- io file --------------------------------------
+
+    // make io filename for the given pid:
+    snprintf(filename, sizeof(filename), "/proc/%d/io", pid);
+
+    // Open the io file:
+    FILE* ioFile = fopen(filename, "r");
+    if (ioFile == NULL) {
+        perror("Error. failed call to fopen to open /proc/<pid>/io");
         return;
     }
-    int argc = 0;
-    while (fscanf(fp, "%s", line) != EOF) {
-        argc++;
+
+    // get lines 3 and 4 from the /proc/<pid>/io file:
+    line = NULL;
+    len = 0;
+    unsigned long syscr, syscw;
+    while (getline(&line, &len, ioFile) != -1) {
+        if (strstr(line, "syscr:") != NULL) {
+            sscanf(line, "%*s %lu", &syscr);
+        } else if (strstr(line, "syscw:") != NULL) {
+            sscanf(line, "%*s %lu", &syscw);
+        }
     }
-    fclose(fp);
+    fclose(ioFile);
+    free(line);
 
-    // Calculate IO operations (simplified, assuming only read/write system calls)
-    // For a more accurate count, you'd need to parse /proc/[pid]/io
-    int io_calls = 0; // Placeholder, implement actual calculation
 
-    // Print the formatted output
-    printf("%-6d %-20s %-6d %-10d %-10d %-10d\n",
-           pid, comm, ppid, vsize / 1024, io_calls, argc);
+    // // -------------- status file --------------------------------------
+
+    // make io filename for the given pid:
+    snprintf(filename, sizeof(filename), "/proc/%d/status", pid);
+
+    // Open the io file:
+    FILE* statusFile = fopen(filename, "r");
+    if (statusFile == NULL) {
+        perror("Error. failed call to fopen to open /proc/<pid>/status");
+        return;
+    }
+
+    line = NULL;
+    len = 0;
+    unsigned long vmRSS;
+    while (getline(&line, &len, statusFile) != -1) {
+        if (strstr(line, "VmRSS") != NULL) {
+            sscanf(line, "%*s %lu", &vmRSS);
+            break;
+        }
+    }
+    fclose(statusFile);
+    free(line);
+
+
+    // ------------ printing table --------------------------------------
+
+    // print table column headers:
+    printf("%-8s %-12s %-8s %-10s %-10s %-10s\n", 
+           "PID", "Name", "PPID", "CPU Time", "IO Calls", "Mem Size");
+
+    // print the row for the process:
+    printf("%-8d %-12s %-8d %-10lu %-10lu %-10lu\n", 
+            PID, name, PPID, (utime + stime), (syscr + syscw), vmRSS);
+
 }
