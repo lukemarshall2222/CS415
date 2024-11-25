@@ -1,0 +1,124 @@
+==2715795== Memcheck, a memory error detector
+==2715795== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2715795== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==2715795== Command: ./part3 input.txt
+==2715795== 
+total 538
+  1 .vscode
+  7 stringParser.c
+367 project-2-description-fall-2024.pdf
+  7 part5.c
+ 12 part5
+  7 part4.c
+ 12 part4
+  7 part3.c
+ 12 part3
+  7 part2.c
+ 12 part2
+  7 part1.c
+ 12 part1
+  7 output.txt
+  7 MCP.h
+  7 Makefile
+  1 log3.txt
+  7 log2.txt
+  7 log1.txt
+  7 iobound.c
+  7 iobound
+  1 input.txt
+  7 cpubound.c
+  7 cpubound
+  1 ..
+ 12 .
+Error. Failed in executing call to execvp: No such file or directory
+calling command invalid in child process 2715798
+==2715798== 
+==2715798== HEAP SUMMARY:
+==2715798==     in use at exit: 20 bytes in 1 blocks
+==2715798==   total heap usage: 21 allocs, 20 frees, 17,290 bytes allocated
+==2715798== 
+==2715798== LEAK SUMMARY:
+==2715798==    definitely lost: 0 bytes in 0 blocks
+==2715798==    indirectly lost: 0 bytes in 0 blocks
+==2715798==      possibly lost: 0 bytes in 0 blocks
+==2715798==    still reachable: 20 bytes in 1 blocks
+==2715798==         suppressed: 0 bytes in 0 blocks
+==2715798== Reachable blocks (those to which a pointer was found) are not shown.
+==2715798== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==2715798== 
+==2715798== For lists of detected and suppressed errors, rerun with: -s
+==2715798== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+Process: 2715799 - Begining to write to file.
+Process: 2715799 - Finished.
+Process: 2715800 - Begining calculation.
+Process: 2715800 - Finished.
+beginning child process 2715796
+beginning child process 2715797
+beginning child process 2715798
+beginning child process 2715799
+beginning child process 2715800
+stopping child process 2715796
+stopping child process 2715797
+stopping child process 2715798
+stopping child process 2715799
+stopping child process 2715800
+alarm signaled, stopping child process 2715796
+begin time slice, starting child process 2715797
+alarm signaled, stopping child process 2715797
+begin time slice, starting child process 2715798
+alarm signaled, stopping child process 2715798
+begin time slice, starting child process 2715799
+alarm signaled, stopping child process 2715799
+begin time slice, starting child process 2715800
+alarm signaled, stopping child process 2715800
+begin time slice, starting child process 2715797
+alarm signaled, stopping child process 2715797
+begin time slice, starting child process 2715799
+alarm signaled, stopping child process 2715799
+begin time slice, starting child process 2715800
+alarm signaled, stopping child process 2715800
+begin time slice, starting child process 2715799
+alarm signaled, stopping child process 2715799
+begin time slice, starting child process 2715800
+alarm signaled, stopping child process 2715800
+begin time slice, starting child process 2715799
+alarm signaled, stopping child process 2715799
+begin time slice, starting child process 2715800
+alarm signaled, stopping child process 2715800
+begin time slice, starting child process 2715799
+alarm signaled, stopping child process 2715799
+begin time slice, starting child process 2715800
+alarm signaled, stopping child process 2715800
+begin time slice, starting child process 2715799
+alarm signaled, stopping child process 2715799
+begin time slice, starting child process 2715800
+alarm signaled, stopping child process 2715800
+begin time slice, starting child process 2715799
+alarm signaled, stopping child process 2715799
+begin time slice, starting child process 2715800
+alarm signaled, stopping child process 2715800
+begin time slice, starting child process 2715799
+alarm signaled, stopping child process 2715799
+begin time slice, starting child process 2715800
+alarm signaled, stopping child process 2715800
+begin time slice, starting child process 2715799
+alarm signaled, stopping child process 2715799
+begin time slice, starting child process 2715800
+alarm signaled, stopping child process 2715800
+begin time slice, starting child process 2715799
+alarm signaled, stopping child process 2715799
+begin time slice, starting child process 2715800
+alarm signaled, stopping child process 2715800
+begin time slice, starting child process 2715799
+alarm signaled, stopping child process 2715799
+begin time slice, starting child process 2715800
+Finished executing all child processes...exiting
+==2715795== 
+==2715795== HEAP SUMMARY:
+==2715795==     in use at exit: 0 bytes in 0 blocks
+==2715795==   total heap usage: 31 allocs, 31 frees, 17,444 bytes allocated
+==2715795== 
+==2715795== All heap blocks were freed -- no leaks are possible
+==2715795== 
+==2715795== For lists of detected and suppressed errors, rerun with: -s
+==2715795== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

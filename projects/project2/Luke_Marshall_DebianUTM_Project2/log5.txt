@@ -1,0 +1,96 @@
+==2721373== Memcheck, a memory error detector
+==2721373== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2721373== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==2721373== Command: ./part5 input.txt
+==2721373== 
+total 551
+  1 .vscode
+  7 stringParser.c
+367 project-2-description-fall-2024.pdf
+  7 part5.c
+ 12 part5
+  7 part4.c
+ 12 part4
+  7 part3.c
+ 12 part3
+  7 part2.c
+ 12 part2
+  7 part1.c
+ 12 part1
+  7 output.txt
+  7 MCP.h
+  7 Makefile
+  1 log5.txt
+  7 log4.txt
+  7 log3.txt
+  7 log2.txt
+  7 log1.txt
+  7 iobound.c
+  7 iobound
+  1 input.txt
+  7 cpubound.c
+  7 cpubound
+  1 ..
+ 12 .
+Error. failed call to fopen to open /proc<pid>/stat: No such file or directory
+Error. Failed in executing call to execvp: No such file or directory
+==2721376== 
+==2721376== HEAP SUMMARY:
+==2721376==     in use at exit: 0 bytes in 0 blocks
+==2721376==   total heap usage: 21 allocs, 21 frees, 9,118 bytes allocated
+==2721376== 
+==2721376== All heap blocks were freed -- no leaks are possible
+==2721376== 
+==2721376== For lists of detected and suppressed errors, rerun with: -s
+==2721376== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+Error. failed call to fopen to open /proc<pid>/stat: No such file or directory
+Error. failed call to fopen to open /proc<pid>/stat: No such file or directory
+Process: 2721378 - Begining calculation.
+Process: 2721378 - Finished.
+Error. failed call to fopen to open /proc<pid>/stat: No such file or directory
+Process: 2721377 - Begining to write to file.
+Process: 2721377 - Finished.
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721375  sleep        2721373  1          15         848        1            IO High           
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721377  iobound      2721373  99         94658      748        1            IO High           
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721378  cpubound     2721373  100        15         772        1            IO High           
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721377  iobound      2721373  199        198615     748        1            IO High           
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721378  cpubound     2721373  200        15         772        1            Balanced CPU-IO   
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721377  iobound      2721373  299        302466     748        1            IO High           
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721378  cpubound     2721373  300        15         772        1            Balanced CPU-IO   
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721377  iobound      2721373  400        406397     748        1            IO High           
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721378  cpubound     2721373  400        15         772        2            CPU High          
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721377  iobound      2721373  499        507027     748        1            IO High           
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721378  cpubound     2721373  600        15         772        2            Balanced CPU-IO   
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721377  iobound      2721373  599        611239     748        1            IO High           
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721378  cpubound     2721373  800        15         772        4            CPU High          
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721377  iobound      2721373  700        715214     748        1            IO High           
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721377  iobound      2721373  799        819236     748        1            IO High           
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721377  iobound      2721373  900        923119     748        1            IO High           
+PID      Name         PPID     CPU Time   IO Calls   Mem Size   Time Slice   Reason            
+2721377  iobound      2721373  999        1026938    748        1            IO High           
+Finished executing all child processes...exiting
+==2721373== 
+==2721373== HEAP SUMMARY:
+==2721373==     in use at exit: 0 bytes in 0 blocks
+==2721373==   total heap usage: 206 allocs, 206 frees, 107,483 bytes allocated
+==2721373== 
+==2721373== All heap blocks were freed -- no leaks are possible
+==2721373== 
+==2721373== For lists of detected and suppressed errors, rerun with: -s
+==2721373== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
