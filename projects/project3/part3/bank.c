@@ -378,7 +378,7 @@ void *processTransaction(void* arg) { // a.k.a. processThreadWork(threadwork *tw
     pthread_mutex_unlock(&waitingWorkerThreadsLock);
     pthread_mutex_unlock(&activeWorkerThreadsLock);
     printf("terminating worker thread %d\n", tw->threadInd);
-    return NULL;
+    pthread_exit(NULL);
 }
 
 /**
@@ -594,7 +594,7 @@ void *updateBalance(void *arg) {
         // back to top to wait for next bank begin signal
     }
     printf("bank thread terminating\n");
-    return NULL;
+    pthread_exit(NULL);
 }
 
 /**
@@ -628,7 +628,8 @@ int getNumLines(FILE* file) {
     int lineCount = 0;
     char ch;
     // count the newlines:
-    while ((ch = fgetc(file)) != EOF) {
+    while (!feof(file)) {
+        ch = fgetc(file);
         if (ch == '\n') {
             lineCount++;
         }

@@ -1,19 +1,4 @@
 account 7:
-Current Balance:			2269840.78
-Current Balance:			2268116.27
-Current Balance:			2304361.70
-Current Balance:			2344055.31
-Current Balance:			2338268.90
-Current Balance:			2252404.26
-Current Balance:			2256717.93
-Current Balance:			2308337.92
-Current Balance:			2346907.08
-Current Balance:			2301992.30
-Current Balance:			2348224.49
-Current Balance:			2378080.77
-Current Balance:			2379883.78
-Current Balance:			2338837.48
-Current Balance:			2368249.23
-Current Balance:			2339078.24
-Current Balance:			2319753.91
+Current Balance:			2201770.56
+Current Balance:			2326103.31
 Current Balance:			2306013.02
