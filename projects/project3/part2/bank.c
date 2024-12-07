@@ -7,6 +7,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <sys/types.h>
+#include <time.h>
+#include <unistd.h>
 
 // defined values:
 #define THREAD_COUNT 10
@@ -18,7 +21,7 @@ void transfer(int index, char* pw, char* destAcct, double amount);
 void checkBalance(int index, char* pw);
 void deposit(int index, char* pw, double amount);
 void withdraw(int index, char* pw, double amount);
-int findIndex(char* acct);
+int indexOf(char* acct);
 int getNumLines(FILE *file);
 void updateAcctBalance(int index, double amount);
 void countTrackAndCheck(int index, double amount);
@@ -30,10 +33,14 @@ int transactionCount; // number of transactions that have occured, excluding bal
                       // accounts; reset when reaches 5000
 double *rewardTracker;
 int activeWorkerThreads = THREAD_COUNT;
+int pipeFD[2];
+int balanceChecks = 0;
 
 // global mutexes and cond variables:
 pthread_mutex_t transactionCountLock = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t activeWorkerThreadsLock = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t pipeLock = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t balanceChecksLock = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t workerSignal = PTHREAD_COND_INITIALIZER;
 
 
@@ -192,40 +199,63 @@ int main(int argc, char** argv) {
     // allocate for the reward tracker:
     rewardTracker = (double*)malloc(sizeof(double)*accountCount);
     
-    pthread_t threads[THREAD_COUNT];
-    // Create threads
-    for (int i = 0; i < THREAD_COUNT; i++) {
-        if (pthread_create(&threads[i], NULL, processTransaction, transactionSets[i]) != 0) {
-            fprintf(stderr, "Error. Failed to create thread %d", i);
+    pipe(pipeFD);
+    pid_t pid = fork();
+
+    if (pid < 0) {
+        perror("Error. Failed to fork process");
+        exit(EXIT_FAILURE);
+    } else if (pid == 0 ) { // child process
+        close(pipeFD[1]);
+        char buf[256];
+        ssize_t amountRead;
+        FILE *file;
+        file = fopen("Ledger.txt", "w");
+        fclose(file);
+        while ((amountRead = read(pipeFD[0], buf, sizeof(buf)-1)) > 0) {
+            buf[amountRead] = '\0';
+            file = fopen("Ledger.txt", "a");
+            fprintf(file, "%s", buf);
+            fclose(file);
+        }
+    } else { // parent/main process
+        pthread_t threads[THREAD_COUNT];
+        // Create threads
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            if (pthread_create(&threads[i], NULL, processTransaction, transactionSets[i]) != 0) {
+                fprintf(stderr, "Error. Failed to create thread %d", i);
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        pthread_t bank;
+        if (pthread_create(&bank, NULL, updateBalance, NULL) != 0) {
+            fprintf(stderr, "Error. Failed to create bank thread");
             exit(EXIT_FAILURE);
         }
-    }
 
-    pthread_t bank;
-    if (pthread_create(&bank, NULL, updateBalance, NULL) != 0) {
-        fprintf(stderr, "Error. Failed to create bank thread");
-        exit(EXIT_FAILURE);
-    }
-
-    // join all threads to make main thread wait:
-    for (int i = 0; i < THREAD_COUNT; i++) {
-        if (pthread_join(threads[i], NULL) != 0) {
-            fprintf(stderr, "Error. thread join failed for thread %d", i);
+        // join all threads to make main thread wait:
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            if (pthread_join(threads[i], NULL) != 0) {
+                fprintf(stderr, "Error. thread join failed for thread %d", i);
+                exit(EXIT_FAILURE);
+            }
+        }
+        if (pthread_join(bank, NULL) != 0) {
+            fprintf(stderr, "Error. thread join failed for bank thread");
             exit(EXIT_FAILURE);
         }
-    }
-    if (pthread_join(bank, NULL) != 0) {
-        fprintf(stderr, "Error. thread join failed for bank thread");
-        exit(EXIT_FAILURE);
-    }
-    
 
-    // print end account balances:
-    FILE* ro = fopen("real-output.txt", "w");
-    for (int k = 0; k < accountCount; k++) {
-        fprintf(ro, "%d balance:\t%.2f\n\n", k, accounts[k]->balance);
+        close(pipeFD[1]);
+        
+
+        // print end account balances:
+        FILE* ro = fopen("output.txt", "w");
+        for (int k = 0; k < accountCount; k++) {
+            fprintf(ro, "%d balance:\t%.2f\n\n", k, accounts[k]->balance);
+        }
+        fclose(ro);
     }
-    fclose(ro);
 
     // cleanup:
     free(line);
@@ -236,6 +266,9 @@ int main(int argc, char** argv) {
     }
     free(accounts);
     for (int i = 0; i < THREAD_COUNT; i++) {
+        for (int j = 0; j < transactionSets[i]->lineCount; j++) {
+            free(transactionSets[i]->transactionLines[j]);
+        }
         free(transactionSets[i]->transactionLines);
         free(transactionSets[i]);
     }
@@ -243,6 +276,8 @@ int main(int argc, char** argv) {
     free(rewardTracker);
     pthread_mutex_destroy(&transactionCountLock);
     pthread_mutex_destroy(&activeWorkerThreadsLock);
+    pthread_mutex_destroy(&pipeLock);
+    pthread_mutex_destroy(&balanceChecksLock);
     pthread_cond_destroy(&workerSignal);
 
     exit(EXIT_SUCCESS);
@@ -260,7 +295,7 @@ void *processTransaction(void* arg) { // a.k.a. processThreadWork(threadwork *tw
     for (int i = 0; i < tw->lineCount; i++) {
         transaction = strFiller(tw->transactionLines[i], " ");
         // find index of account struct:
-        index = findIndex(transaction.cmdList[1]);
+        index = indexOf(transaction.cmdList[1]);
         if (index < 0) return NULL;
 
         if (transaction.cmdList[0][0] == 'T') { // transfer
@@ -294,6 +329,8 @@ void *processTransaction(void* arg) { // a.k.a. processThreadWork(threadwork *tw
                     transaction.cmdList[0]
                    );
         }
+
+        freeCmdLine(&transaction);
     }
 
     // threak workload is done, decrement the active threads count:
@@ -327,7 +364,7 @@ void transfer(int index, char* pw, char* destAcct, double amount) {
     countTrackAndCheck(index, amount);
     
     // add amount to destination account balance:
-    int destInd = findIndex(destAcct);
+    int destInd = indexOf(destAcct);
     updateAcctBalance(destInd, amount);
 
     return;
@@ -342,7 +379,26 @@ void checkBalance(int index, char* pw) {
     if (strcmp(accounts[index]->password, pw) != 0) {
         return;
     }
-    // printf("balance: %f\n", accounts[index]->balance);
+
+    // get the local time:
+    time_t currTime = time(NULL);
+    struct tm *time = localtime(&currTime);
+    char *timeBuf = asctime(time);
+
+    pthread_mutex_lock(&balanceChecksLock);
+    if (balanceChecks % 500 == 0) {
+        char buf[256];
+        sprintf(buf, "Worker checked the balance of account %s. Balance is %.2f. Check occured at %s", 
+                    accounts[index]->acctNum, accounts[index]->balance, timeBuf);
+        pthread_mutex_lock(&pipeLock);
+        write(pipeFD[1], buf, strlen(buf));
+        pthread_mutex_unlock(&pipeLock);
+        balanceChecks = 0;
+    }
+    balanceChecks++;
+    pthread_mutex_unlock(&balanceChecksLock);
+    
+    // fprintf("balance: %f\n", accounts[index]->balance);
     return;
 }
 
@@ -412,11 +468,13 @@ void countTrackAndCheck(int index, double amount) {
     if (transactionCount == 5000) {
         for (int i = 0; i < accountCount; i++) {
             pthread_mutex_lock(&accounts[i]->acctLock);
+            printf("applying reward\n");
             rewardTracker[i] += accounts[i]->transactionTracker * accounts[i]->rewardRate;
             accounts[i]->transactionTracker = 0;
             pthread_mutex_unlock(&accounts[i]->acctLock);
         }
         transactionCount = 0;
+        printf("continuing exection\n");
     }
     pthread_mutex_unlock(&transactionCountLock);
 }
@@ -433,8 +491,22 @@ void *updateBalance(void *arg) {
     pthread_mutex_unlock(&activeWorkerThreadsLock);
 
     // add to each account balance according to its tracked reward:
+    char buf[256];
+    time_t currTime; 
+    char *timeBuf;
     for (int i = 0; i < accountCount; i++) {
+        printf("applying final reward\n");
         updateAcctBalance(i, rewardTracker[i]);
+
+        // get the local time:
+        currTime = time(NULL);
+        timeBuf = asctime(localtime(&currTime));
+
+        sprintf(buf, "Applied interest to account %s. New Balance: $%.2f. Time of Update: %s", 
+                        accounts[i]->acctNum, accounts[i]->balance, timeBuf);
+        pthread_mutex_lock(&pipeLock);
+        write(pipeFD[1], buf, strlen(buf));
+        pthread_mutex_unlock(&pipeLock);
     }
 
     return NULL;
@@ -444,7 +516,7 @@ void *updateBalance(void *arg) {
  * Finds and returns the index of the accounts array where the given account struct is stored
  * returns the index if it exists in the array and -1 otherwise
 */
-int findIndex(char* acct) {
+int indexOf(char* acct) {
     int index = -1;
     for (int i = 0; i < accountCount; i++) {
         if (strcmp(accounts[i]->acctNum, acct) == 0) { // strings are the same

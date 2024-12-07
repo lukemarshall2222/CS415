@@ -1,0 +1,19 @@
+account 3:
+Current Balance:			4612588.36
+Current Balance:			4572055.35
+Current Balance:			4558747.67
+Current Balance:			4523712.63
+Current Balance:			4475324.15
+Current Balance:			4434319.52
+Current Balance:			4381351.87
+Current Balance:			4337380.75
+Current Balance:			4279998.99
+Current Balance:			4275827.89
+Current Balance:			4223858.50
+Current Balance:			4179121.77
+Current Balance:			4152609.50
+Current Balance:			4115810.97
+Current Balance:			4073274.72
+Current Balance:			4021445.90
+Current Balance:			3983632.93
+Current Balance:			3889910.50

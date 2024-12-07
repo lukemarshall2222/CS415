@@ -14,7 +14,7 @@ void transfer(int index, char* pw, char* destAcct, double amount);
 void checkBalance(int index, char* pw);
 void deposit(int index, char* pw, double amount);
 void withdraw(int index, char* pw, double amount);
-int findIndex(char* acct);
+int indexOf(char* acct);
 
 // global variables:
 account **accounts; // array of account structs
@@ -69,6 +69,7 @@ int main(int argc, char** argv) {
     commandLine acctNum, pw;
     // iterate over the account information lines per account in the account block:
     while (j < accountCount) {
+        printf("populating accounts\n");
         // skip over the index:
         getline(&line, &len, inputFile);
         
@@ -122,7 +123,7 @@ int main(int argc, char** argv) {
     }
 
     // print end account balances:
-    FILE* ro = fopen("real-output.txt", "w");
+    FILE* ro = fopen("output.txt", "w");
     for (int k = 0; k < accountCount; k++) {
         fprintf(ro, "%d balance:\t%.2f\n\n", k, accounts[k]->balance);
     }
@@ -146,7 +147,7 @@ int main(int argc, char** argv) {
 void *processTransaction(void *arg) {
     commandLine *transaction = (commandLine*) arg;
     // find index of account struct:
-    int index = findIndex(transaction->cmdList[1]);
+    int index = indexOf(transaction->cmdList[1]);
     if (index < 0) return NULL;
 
     if (transaction->cmdList[0][0] == 'T') { // tranfer
@@ -202,7 +203,7 @@ void transfer(int index, char* pw, char* destAcct, double amount) {
     accounts[index]->transactionTracker += amount;
     
     // add amount to destination account balance:
-    int destInd = findIndex(destAcct);
+    int destInd = indexOf(destAcct);
     accounts[destInd]->balance += amount;
 
     transactionCount++;
@@ -218,6 +219,9 @@ void checkBalance(int index, char* pw) {
     if (strcmp(accounts[index]->password, pw) != 0) {
         return;
     }
+    // FILE *fd = fopen("Output/balances.txt", "a");
+    // fprintf(fd, "Current Balance\t\t%.2f\n", accounts[index]->balance);
+    // fclose(fd);
     // printf("balance: %f\n", accounts[index]->balance);
     return;
 }
@@ -273,9 +277,10 @@ void *updateBalance(void *arg) {
     for (int i = 0; i < accountCount; i++) {
         acct = accounts[i];
         acct->balance += (acct->rewardRate * acct->transactionTracker);
+        printf("applied reward\n");
         accounts[i]->transactionTracker = 0;
     }
-
+    printf("continuing with transactions\n");
     // reset transaction count:
     transactionCount = 0;
     return NULL;
@@ -285,7 +290,7 @@ void *updateBalance(void *arg) {
  * Finds and returns the index of the accounts array where the given account struct is stored
  * returns the index if it exists in the array and -1 otherwise
 */
-int findIndex(char* acct) {
+int indexOf(char* acct) {
     int index = -1;
     for (int i = 0; i < accountCount; i++) {
         if (strcmp(accounts[i]->acctNum, acct) == 0) { // strings are the same

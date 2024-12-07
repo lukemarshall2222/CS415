@@ -9,9 +9,12 @@
 #include <string.h>
 #include <math.h>
 #include <stdbool.h>
+#include <unistd.h>
+#include <time.h>
+#include <sys/types.h>
 
 // defined values:
-#define THREAD_COUNT 1
+#define THREAD_COUNT 10
 
 // function declararations:
 void *processTransaction(void *arg);
@@ -20,32 +23,37 @@ void transfer(int index, char* pw, char* destAcct, double amount);
 void checkBalance(int index, char* pw);
 void deposit(int index, char* pw, double amount);
 void withdraw(int index, char* pw, double amount);
-int findIndex(char* acct);
+int indexOf(char* acct);
 int getNumLines(FILE *file);
 void updateAcctBalance(int index, double amount);
 void countTrackAndCheck(int index, double amount);
+bool checkPassword(int index, char* pw);
 
 // global variables:
 account **accounts; // array of account structs
 int accountCount; // total number of account structs being tracked
 int transactionCount; // number of transactions that have occured, excluding balance checks, throughout all
                       // accounts; reset when reaches 5000
-int activeWorkers = THREAD_COUNT;
-bool waitForMain = true; // flag to make the worker and bank threads wait for signal from main
-bool waitForBank = false; // flag to make the workers wait while the bank does its reward updates
+double *rewardTracker;
+int activeWorkerThreads = THREAD_COUNT;
+int waitingWorkers = 0;
+int pipeFD[2];
+int balanceChecks = 0;
 
 // global mutexes:
-pthread_mutex_t transactionCountLock = PTHREAD_MUTEX_INITIALIZER; // lock for accessing the transaction counter
-pthread_mutex_t allWaitLock = PTHREAD_MUTEX_INITIALIZER; // lock for accessing the waitFormain flag
+pthread_mutex_t transactionCountLock = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t activeWorkerThreadsLock = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t waitingWorkerThreadsLock = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t pipeLock = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t balanceChecksLock = PTHREAD_MUTEX_INITIALIZER;
 
-// global condition variables:
-pthread_cond_t allWaitSignal = PTHREAD_COND_INITIALIZER; // to signal when worker and bank threads may start
+// global cond variables:
+pthread_cond_t workerSignal = PTHREAD_COND_INITIALIZER;
+pthread_cond_t bankBeginSignal = PTHREAD_COND_INITIALIZER;
+pthread_cond_t bankWorkingSignal = PTHREAD_COND_INITIALIZER;
 
-// global barrier:
-pthread_barrier_t allThreadsBarrier; // to sync the worker threads and allow the bank to start
-pthread_barrier_t workerThreadsBarrier; // to stop all the worker threads until bank is done updating
-
+// global barriers:
+pthread_barrier_t mainBarrier;
 
 int main(int argc, char** argv) {
 
@@ -101,6 +109,8 @@ int main(int argc, char** argv) {
 
     int j = 0;
     commandLine acctNum, pw;
+    FILE *fd;
+    char buf[24];
     // iterate over the account information lines per account in the account block:
     while (j < accountCount) {
         // skip over the index:
@@ -129,6 +139,13 @@ int main(int argc, char** argv) {
 
         // init the transaction tracker to 0:
         accounts[j]->transactionTracker = 0;
+
+        // init the output file:
+        sprintf(buf, "Output/account%d.txt", j);
+        memcpy(accounts[j]->outFile, buf, (size_t)strlen(buf)+1);
+        fd = fopen(accounts[j]->outFile, "w");
+        fprintf(fd, "account %d:\n", j);
+        fclose(fd);
 
         j++;
     }
@@ -181,7 +198,7 @@ int main(int argc, char** argv) {
         }
     }
 
-    // take any leftover transaction lines and spread them evenly among the threads:
+    // take any leftover transaction lines and give them to the threads:
     if (leftOvers != 0) {
         for (int i = 0; i < leftOvers; i++) {
             if (getline(&line, &len, inputFile) == -1) break;
@@ -198,79 +215,100 @@ int main(int argc, char** argv) {
     //     }
     // }
     // fclose(structs2);
-    
-    pthread_t threads[THREAD_COUNT];
-    // Create threads
-    for (int i = 0; i < THREAD_COUNT; i++) {
-        if (pthread_create(&threads[i], NULL, processTransaction, transactionSets[i]) != 0) {
-            fprintf(stderr, "Error. Failed to create thread %d", i);
+
+    pipe(pipeFD);
+    pid_t pid = fork();
+    if (pid < 0) {
+        perror("Error. Failed to fork process");
+        exit(EXIT_FAILURE);
+    } else if (pid == 0) { // child process
+        close(pipeFD[1]);
+        char buf[256];
+        ssize_t amountRead;
+        FILE *file;
+        file = fopen("Ledger.txt", "w");
+        fclose(file);
+        while ((amountRead = read(pipeFD[0], buf, sizeof(buf)-1)) > 0) {
+            file = fopen("Ledger.txt", "a");
+            buf[amountRead] = '\0';
+            fprintf(file, "%s", buf);
+            fclose(file);
+        }
+    } else { // parent/main process
+
+        // allocate for the reward tracker:
+        rewardTracker = (double*)malloc(sizeof(double)*accountCount);
+
+        // create the barrier:
+        pthread_barrier_init(&mainBarrier, NULL, THREAD_COUNT+2);
+        
+        pthread_t threads[THREAD_COUNT];
+        // Create threads
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            if (pthread_create(&threads[i], NULL, processTransaction, transactionSets[i]) != 0) {
+                fprintf(stderr, "Error. Failed to create thread %d", i);
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        pthread_t bank;
+        if (pthread_create(&bank, NULL, updateBalance, NULL) != 0) {
+            fprintf(stderr, "Error. Failed to create bank thread");
             exit(EXIT_FAILURE);
         }
-    }
 
-    // create the bank thread:
-    pthread_t bank;
-    if (pthread_create(&bank, NULL, updateBalance, NULL) != 0) {
-        fprintf(stderr, "Error. Failed to create bank thread");
-        exit(EXIT_FAILURE);
-    }
+        // signal the rest of the threads to continue:
+        pthread_barrier_wait(&mainBarrier);
+        printf("signaling workers and bank to start\n");
 
-    pthread_mutex_lock(&allWaitLock);
-    // init the allThreadsBarrier:
-    if (pthread_barrier_init(&allThreadsBarrier, NULL, THREAD_COUNT+1) != 0) {
-        perror("Error. Failed to init allThreadsBarrier");
-        exit(EXIT_FAILURE);
-    }
-    // init the workerThreadsBarrier:
-    if (pthread_barrier_init(&workerThreadsBarrier, NULL, THREAD_COUNT+1) != 0) {
-        perror("Error. Failed to init workerThreadsBarrier");
-        exit(EXIT_FAILURE);
-    }
-    // set the flag and signal the threads to continue:
-    waitForMain = false;
-    pthread_cond_broadcast(&allWaitSignal);
-    pthread_mutex_unlock(&allWaitLock);
-
-    // join all threads to make main thread wait:
-    for (int i = 0; i < THREAD_COUNT; i++) {
-        if (pthread_join(threads[i], NULL) != 0) {
-            fprintf(stderr, "Error. thread join failed for thread %d", i);
+        // join all threads to make main thread wait:
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            if (pthread_join(threads[i], NULL) != 0) {
+                fprintf(stderr, "Error. thread join failed for thread %d", i);
+                exit(EXIT_FAILURE);
+            }
+        }
+        if (pthread_join(bank, NULL) != 0) {
+            fprintf(stderr, "Error. thread join failed for bank thread");
             exit(EXIT_FAILURE);
         }
+
+        close(pipeFD[1]);
+        
+
+        // print end account balances:
+        FILE* out = fopen("output.txt", "w");
+        for (int k = 0; k < accountCount; k++) {
+            fprintf(out, "%d balance:\t%.2f\n\n", k, accounts[k]->balance);
+        }
+        fclose(out);
     }
-    if (pthread_join(bank, NULL) != 0) {
-        fprintf(stderr, "Error. thread join failed for bank thread");
-        exit(EXIT_FAILURE);
-    }
-    
-    // print end account balances:
-    FILE* ro = fopen("real-output.txt", "w");
-    for (int k = 0; k < accountCount; k++) {
-        fprintf(ro, "%d balance:\t%.2f\n\n", k, accounts[k]->balance);
-    }
-    fclose(ro);
 
     // cleanup:
-    fclose(inputFile);
-    //free memory:
     free(line);
+    fclose(inputFile);
     for (int i = 0; i < accountCount; i++) {
         pthread_mutex_destroy(&accounts[i]->acctLock);
         free(accounts[i]);
     }
     free(accounts);
     for (int i = 0; i < THREAD_COUNT; i++) {
+        for (int j = 0; j < transactionSets[i]->lineCount; j++) {
+            free(transactionSets[i]->transactionLines[j]);
+        }
         free(transactionSets[i]->transactionLines);
         free(transactionSets[i]);
     }
     free(transactionSets);
-    // destroy mutexes, cond variables, and barriers:
+    free(rewardTracker);
     pthread_mutex_destroy(&transactionCountLock);
-    pthread_mutex_destroy(&allWaitLock);
     pthread_mutex_destroy(&activeWorkerThreadsLock);
-    pthread_cond_destroy(&allWaitSignal);
-    pthread_barrier_destroy(&allThreadsBarrier);
-    pthread_barrier_destroy(&workerThreadsBarrier);
+    pthread_mutex_destroy(&waitingWorkerThreadsLock);
+    pthread_mutex_destroy(&pipeLock);
+    pthread_mutex_destroy(&balanceChecksLock);
+    pthread_cond_destroy(&workerSignal);
+    pthread_cond_destroy(&bankBeginSignal);
+    pthread_barrier_destroy(&mainBarrier);
 
     exit(EXIT_SUCCESS);
 }
@@ -280,22 +318,19 @@ int main(int argc, char** argv) {
  * function called by worker threads to handle the specified transaction
 */
 void *processTransaction(void* arg) { // a.k.a. processThreadWork(threadwork *tw);
-    // wait on main to signal:
-    pthread_mutex_lock(&allWaitLock);
-    while (waitForMain) {
-        pthread_cond_wait(&allWaitSignal, &allWaitLock);
-    }
-    pthread_mutex_unlock(&allWaitLock);
+    // wait for main to signal to continue:
+    printf("worker waiting for signal from main\n");
+    pthread_barrier_wait(&mainBarrier);
 
-    // begin actual execution:
     threadwork *tw = (threadwork*) arg;
+    printf("signal received, beginning worker %d execution\n", tw->threadInd);
 
     commandLine transaction;
     int index;
     for (int i = 0; i < tw->lineCount; i++) {
         transaction = strFiller(tw->transactionLines[i], " ");
         // find index of account struct:
-        index = findIndex(transaction.cmdList[1]);
+        index = indexOf(transaction.cmdList[1]);
         if (index < 0) return NULL;
 
         if (transaction.cmdList[0][0] == 'T') { // transfer
@@ -329,14 +364,20 @@ void *processTransaction(void* arg) { // a.k.a. processThreadWork(threadwork *tw
                     transaction.cmdList[0]
                    );
         }
+
+        freeCmdLine(&transaction);
     }
 
-    // mark another worker thread as complete:
+    // threak workload is done, decrement the active threads count:
     pthread_mutex_lock(&activeWorkerThreadsLock);
-    printf("terminating worker thread\n");
-    activeWorkers--;
+    pthread_mutex_lock(&waitingWorkerThreadsLock);
+    activeWorkerThreads--;
+    if (activeWorkerThreads == 0 || activeWorkerThreads == waitingWorkers) {
+        pthread_cond_signal(&bankBeginSignal);
+    }
+    pthread_mutex_unlock(&waitingWorkerThreadsLock);
     pthread_mutex_unlock(&activeWorkerThreadsLock);
-
+    printf("terminating worker thread %d\n", tw->threadInd);
     return NULL;
 }
 
@@ -349,7 +390,8 @@ void transfer(int index, char* pw, char* destAcct, double amount) {
     // printf("transfer: %f from %s to %s\n", amount, accounts[index]->acctNum, destAcct);
 
     // check password:
-    if (strcmp(accounts[index]->password, pw) != 0) {
+    if (!checkPassword(index, pw)) {
+        // fprintf(stderr, "invalid password, transaction rejected.\n");
         return;
     }
     
@@ -358,9 +400,9 @@ void transfer(int index, char* pw, char* destAcct, double amount) {
 
     // update and check the global counter, update the account transaction tracker amount:
     countTrackAndCheck(index, amount);
-    
+
     // add amount to destination account balance:
-    int destInd = findIndex(destAcct);
+    int destInd = indexOf(destAcct);
     updateAcctBalance(destInd, amount);
 
     return;
@@ -372,10 +414,29 @@ void transfer(int index, char* pw, char* destAcct, double amount) {
 */
 void checkBalance(int index, char* pw) {
     // password check:
-    if (strcmp(accounts[index]->password, pw) != 0) {
+    if (!checkPassword(index, pw)) {
+        // fprintf(stderr, "invalid password, transaction rejected.\n");
         return;
     }
+
+    // get the local time:
+    time_t currTime = time(NULL);
+    struct tm *time = localtime(&currTime);
+    char *timeBuf = asctime(time);
+
     // printf("balance: %f\n", accounts[index]->balance);
+    pthread_mutex_lock(&balanceChecksLock);
+    if (balanceChecks % 500 == 0) {
+        char buf[256];
+        sprintf(buf, "Worker checked the balance of account %s. Balance is $%.2f. Check occured at %s", 
+                    accounts[index]->acctNum, accounts[index]->balance, timeBuf);
+        pthread_mutex_lock(&pipeLock);
+        write(pipeFD[1], buf, strlen(buf));
+        pthread_mutex_unlock(&pipeLock);
+        balanceChecks = 0;
+    }
+    balanceChecks++;
+    pthread_mutex_unlock(&balanceChecksLock);
     return;
 }
 
@@ -387,7 +448,8 @@ void deposit(int index, char* pw, double amount) {
     // printf("deposit: %f in %s\n", amount, accounts[index]->acctNum);
 
     // password check:
-    if (strcmp(accounts[index]->password, pw) != 0) {
+    if (!checkPassword(index, pw)) {
+        // fprintf(stderr, "invalid password, transaction rejected.\n");
         return;
     }
 
@@ -406,7 +468,8 @@ void withdraw(int index, char* pw, double amount) {
     // printf("withdraw: %f from %s\n", amount, accounts[index]->acctNum);
 
     // check password:
-    if (strcmp(accounts[index]->password, pw) != 0) {
+    if (!checkPassword(index, pw)) {
+        // fprintf(stderr, "invalid password, transaction rejected.\n");
         return;
     }
 
@@ -435,27 +498,32 @@ void updateAcctBalance(int index, double amount) {
  * unlocks global transaction counter
 */
 void countTrackAndCheck(int index, double amount) {
-    // lock the transaction counter:
+    // check if time for reward:
     pthread_mutex_lock(&transactionCountLock);
-    // check if it has reached 5000:
     if (transactionCount == 5000) {
-        // unlock it, call the barrier to sync with all other threads
-        pthread_mutex_unlock(&transactionCountLock);
-        pthread_barrier_wait(&allThreadsBarrier);
-        // when last thread calls barrier, all threads will continue
-        // call the workers barrier to stop all the workers:
-        pthread_barrier_wait(&workerThreadsBarrier);
-        // bank calls worker barrier after completing its work to continue their execution
-        // reaquire the lock:
-        pthread_mutex_lock(&transactionCountLock);
+        // check if current thread is last to get to this point:
+        pthread_mutex_lock(&activeWorkerThreadsLock);
+        pthread_mutex_lock(&waitingWorkerThreadsLock);
+        waitingWorkers++;
+        if (activeWorkerThreads == waitingWorkers) {
+            // reset the waiting workers, signal the bank to begin, and wait for its signal back to continue:
+            waitingWorkers = 0;
+            pthread_mutex_unlock(&waitingWorkerThreadsLock);
+            pthread_mutex_unlock(&activeWorkerThreadsLock);
+            pthread_cond_signal(&bankBeginSignal);
+            pthread_cond_wait(&bankWorkingSignal, &transactionCountLock);
+        } else {
+            pthread_mutex_unlock(&waitingWorkerThreadsLock);
+            pthread_mutex_unlock(&activeWorkerThreadsLock);
+            pthread_cond_wait(&bankWorkingSignal, &transactionCountLock);
+        }
     }
-    // update the transaction counter:
     transactionCount++;
-    // lock the account and update its tracker according to the previous transaction:
+    pthread_mutex_unlock(&transactionCountLock);
+
     pthread_mutex_lock(&accounts[index]->acctLock);
     accounts[index]->transactionTracker += amount;
     pthread_mutex_unlock(&accounts[index]->acctLock);
-    pthread_mutex_unlock(&transactionCountLock);
 }
 
 /**
@@ -463,47 +531,69 @@ void countTrackAndCheck(int index, double amount) {
  * to the balance of each corresponding account
 */
 void *updateBalance(void *arg) {
-    // wait on main to signal:
-    pthread_mutex_lock(&allWaitLock);
-    while (waitForMain) {
-        pthread_cond_wait(&allWaitSignal, &allWaitLock);
-    }
-    pthread_mutex_unlock(&allWaitLock);
+    // wait for main to signal to continue:
+    printf("bank waiting for signal from main\n");
+    pthread_barrier_wait(&mainBarrier);
+    printf("signal received, bank beginning execution\n");
 
     while (true) {
-
         pthread_mutex_lock(&activeWorkerThreadsLock);
-        if (activeWorkers < 1) {
+        // wait for signal from worker to begin:
+        pthread_cond_wait(&bankBeginSignal, &activeWorkerThreadsLock);
+
+        // --- transactions hit 5000 ---
+
+        // reset the trasaction count
+        pthread_mutex_lock(&transactionCountLock);
+        transactionCount = 0;
+        pthread_mutex_unlock(&transactionCountLock);
+
+        // calculate and apply all the rewards:
+        double reward;
+        FILE *fd;
+        char buf[256];
+        time_t currTime; 
+        char *timeBuf;
+        for (int i = 0; i < accountCount; i++) {
+            pthread_mutex_lock(&accounts[i]->acctLock);
+            reward = accounts[i]->transactionTracker * accounts[i]->rewardRate;
+            printf("applying reward\n");
+            accounts[i]->balance += reward;
+            accounts[i]->transactionTracker = 0;
+
+            // write the balance update to the corresponding file:
+            fd = fopen(accounts[i]->outFile, "a");
+            fprintf(fd, "Current Balance:\t\t\t%.2f\n", accounts[i]->balance);
+            fclose(fd);
+
+            // get the local time:
+            currTime = time(NULL);
+            timeBuf = asctime(localtime(&currTime));
+
+
+            sprintf(buf, "Applied interest to account %s. New Balance: $%.2f. Time of Update: %s", 
+                        accounts[i]->acctNum, accounts[i]->balance, timeBuf);
+            pthread_mutex_lock(&pipeLock);
+            write(pipeFD[1], buf, strlen(buf));
+            pthread_mutex_unlock(&pipeLock);
+            pthread_mutex_unlock(&accounts[i]->acctLock);
+        }
+
+        printf("broadcasting restart signal\n");
+        pthread_cond_broadcast(&bankWorkingSignal);
+
+        // --- no more active workers ---
+
+        // if no workers active, terminate:
+        if (activeWorkerThreads < 1) {
             pthread_mutex_unlock(&activeWorkerThreadsLock);
             break;
         }
         pthread_mutex_unlock(&activeWorkerThreadsLock);
 
-        // wait for workers to all reach the transaction counter check and see that it's 5000:
-        pthread_barrier_wait(&allThreadsBarrier);
-        // bank will continue but workers hit another barrier
-        
-        // calculate and apply the reward to each account:
-        double reward;
-        for (int i = 0; i < accountCount; i++) {
-            pthread_mutex_lock(&accounts[i]->acctLock);
-            reward = accounts[i]->transactionTracker * accounts[i]->rewardRate;
-            accounts[i]->balance += reward;
-            FILE *fd = fopen("out.txt", "w");
-            fprintf(fd, "applied reward\n");
-            fclose(fd);
-            pthread_mutex_unlock(&accounts[i]->acctLock);
-        }
-
-        // reset the global transaction counter:
-        pthread_mutex_lock(&transactionCountLock);
-        transactionCount = 0;
-        pthread_mutex_unlock(&transactionCountLock);
-
-        // restart the worker threads:
-        pthread_barrier_wait(&workerThreadsBarrier);
+        // back to top to wait for next bank begin signal
     }
-
+    printf("bank thread terminating\n");
     return NULL;
 }
 
@@ -511,7 +601,7 @@ void *updateBalance(void *arg) {
  * Finds and returns the index of the accounts array where the given account struct is stored
  * returns the index if it exists in the array and -1 otherwise
 */
-int findIndex(char* acct) {
+int indexOf(char* acct) {
     int index = -1;
     for (int i = 0; i < accountCount; i++) {
         if (strcmp(accounts[i]->acctNum, acct) == 0) { // strings are the same
@@ -548,4 +638,12 @@ int getNumLines(FILE* file) {
     fseek(file, 0, SEEK_SET);
 
     return lineCount;
+}
+
+bool checkPassword(int index, char* pw) {
+    bool correct;
+    pthread_mutex_lock(&accounts[index]->acctLock);
+    correct = strcmp(accounts[index]->password, pw) == 0;
+    pthread_mutex_unlock(&accounts[index]->acctLock);
+    return correct;
 }
