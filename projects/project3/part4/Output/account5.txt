@@ -1,4 +1,4 @@
 account 5:
-Current Balance:			2963002.12
-Current Balance:			2147044.83
+Current Balance:			2915895.24
+Current Balance:			2179581.67
 Current Balance:			2119930.00

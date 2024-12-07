@@ -1,0 +1,1526 @@
+==2036765== Memcheck, a memory error detector
+==2036765== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2036765== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==2036765== Command: ./bank ../input-1.txt
+==2036765== 
+==2036765== Thread 12:
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C4CB8: __printf_fp_l (printf_fp.c:396)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C4CD2: __printf_fp_l (printf_fp.c:396)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C050A: __mpn_extract_double (dbl2mpn.c:56)
+==2036765==    by 0x48C4FCE: __printf_fp_l (printf_fp.c:396)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C501E: __printf_fp_l (printf_fp.c:437)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C5041: __printf_fp_l (printf_fp.c:437)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C5902: __printf_fp_l (printf_fp.c:437)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C5071: __printf_fp_l (printf_fp.c:438)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C5094: __printf_fp_l (printf_fp.c:438)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C5096: __printf_fp_l (printf_fp.c:438)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C50BF: __printf_fp_l (printf_fp.c:439)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C50E4: __printf_fp_l (printf_fp.c:439)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C50E6: __printf_fp_l (printf_fp.c:439)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C5104: __printf_fp_l (printf_fp.c:446)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C511D: __printf_fp_l (printf_fp.c:463)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C68B2: __printf_fp_l (printf_fp.c:471)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BED6C: __mpn_lshift (lshift.S:59)
+==2036765==    by 0x48C68B6: __printf_fp_l (printf_fp.c:471)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BED6F: __mpn_lshift (lshift.S:60)
+==2036765==    by 0x48C68B6: __printf_fp_l (printf_fp.c:471)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C68E2: __printf_fp_l (printf_fp.c:476)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C68FA: __printf_fp_l (printf_fp.c:477)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C515F: __printf_fp_l (printf_fp.c:479)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C521E: __printf_fp_l (printf_fp.c:488)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x485289C: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2036765==    by 0x48C51DF: __printf_fp_l (printf_fp.c:535)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48528A9: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2036765==    by 0x48C51DF: __printf_fp_l (printf_fp.c:535)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x4852A37: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2036765==    by 0x48C51DF: __printf_fp_l (printf_fp.c:535)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x4852990: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2036765==    by 0x48C51DF: __printf_fp_l (printf_fp.c:535)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C51EB: __printf_fp_l (printf_fp.c:551)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C51F1: __printf_fp_l (printf_fp.c:551)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BE636: __mpn_cmp (cmp.c:37)
+==2036765==    by 0x48C61EF: __printf_fp_l (printf_fp.c:551)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BE63A: __mpn_cmp (cmp.c:38)
+==2036765==    by 0x48C61EF: __printf_fp_l (printf_fp.c:551)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48BE641: __mpn_cmp (cmp.c:39)
+==2036765==    by 0x48C61EF: __printf_fp_l (printf_fp.c:551)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C61F6: __printf_fp_l (printf_fp.c:551)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x485289C: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2036765==    by 0x48C5284: __printf_fp_l (printf_fp.c:554)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x485298D: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2036765==    by 0x48C5284: __printf_fp_l (printf_fp.c:554)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x4852990: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2036765==    by 0x48C5284: __printf_fp_l (printf_fp.c:554)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x485299B: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2036765==    by 0x48C5284: __printf_fp_l (printf_fp.c:554)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C528D: __printf_fp_l (printf_fp.c:555)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BF428: __mpn_mul_1 (mul_1.S:36)
+==2036765==    by 0x48BF1EC: __mpn_mul (mul.c:81)
+==2036765==    by 0x48C5248: __printf_fp_l (printf_fp.c:541)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BF4B3: __mpn_mul_1 (mul_1.S:85)
+==2036765==    by 0x48BF1EC: __mpn_mul (mul.c:81)
+==2036765==    by 0x48C5248: __printf_fp_l (printf_fp.c:541)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BF522: __mpn_mul_1 (mul_1.S:117)
+==2036765==    by 0x48BF1EC: __mpn_mul (mul.c:81)
+==2036765==    by 0x48C5248: __printf_fp_l (printf_fp.c:541)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BF1F9: __mpn_mul (mul.c:83)
+==2036765==    by 0x48C5248: __printf_fp_l (printf_fp.c:541)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C52DA: __printf_fp_l (printf_fp.c:577)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C52E0: __printf_fp_l (printf_fp.c:573)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C52FF: __printf_fp_l (printf_fp.c:573)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C532F: __printf_fp_l (printf_fp.c:573)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C6F46: __printf_fp_l (printf_fp.c:608)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BEE8C: __mpn_rshift (rshift.S:62)
+==2036765==    by 0x48C6F5A: __printf_fp_l (printf_fp.c:624)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BEEB1: __mpn_rshift (rshift.S:73)
+==2036765==    by 0x48C6F5A: __printf_fp_l (printf_fp.c:624)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48BEE39: __mpn_rshift (rshift.S:31)
+==2036765==    by 0x48C6F7E: __printf_fp_l (printf_fp.c:627)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48BEE60: __mpn_rshift (rshift.S:45)
+==2036765==    by 0x48C6F7E: __printf_fp_l (printf_fp.c:627)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48BEE8A: __mpn_rshift (rshift.S:61)
+==2036765==    by 0x48C6F7E: __printf_fp_l (printf_fp.c:627)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BEE8C: __mpn_rshift (rshift.S:62)
+==2036765==    by 0x48C6F7E: __printf_fp_l (printf_fp.c:627)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48BEE9D: __mpn_rshift (rshift.S:67)
+==2036765==    by 0x48C6F7E: __printf_fp_l (printf_fp.c:627)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BEEB1: __mpn_rshift (rshift.S:73)
+==2036765==    by 0x48C6F7E: __printf_fp_l (printf_fp.c:627)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C6F93: __printf_fp_l (printf_fp.c:629)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C6F99: __printf_fp_l (printf_fp.c:629)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C4502: hack_digit (printf_fp.c:183)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BE998: __mpn_divrem (divrem.c:62)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BE99B: __mpn_divrem (divrem.c:63)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48BE9AC: __mpn_divrem (divrem.c:65)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48BE9B9: __mpn_divrem (divrem.c:72)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BE9D0: __mpn_divrem (divrem.c:73)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BE9DF: __mpn_divrem (divrem.c:73)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48BE9E7: __mpn_divrem (divrem.c:72)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BEA15: __mpn_divrem (divrem.c:79)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C4567: hack_digit (printf_fp.c:189)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C456B: hack_digit (printf_fp.c:190)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C4583: hack_digit (printf_fp.c:193)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C4598: hack_digit (printf_fp.c:193)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BF428: __mpn_mul_1 (mul_1.S:36)
+==2036765==    by 0x48C4516: hack_digit (printf_fp.c:204)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BF44C: __mpn_mul_1 (mul_1.S:52)
+==2036765==    by 0x48C4516: hack_digit (printf_fp.c:204)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C451A: hack_digit (printf_fp.c:205)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C452C: hack_digit (printf_fp.c:206)
+==2036765==    by 0x48C55B3: __printf_fp_l (printf_fp.c:942)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BE998: __mpn_divrem (divrem.c:62)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C565B: __printf_fp_l (printf_fp.c:966)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BE99B: __mpn_divrem (divrem.c:63)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C565B: __printf_fp_l (printf_fp.c:966)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48BE9AC: __mpn_divrem (divrem.c:65)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C565B: __printf_fp_l (printf_fp.c:966)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BE9D0: __mpn_divrem (divrem.c:73)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C565B: __printf_fp_l (printf_fp.c:966)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BE9DF: __mpn_divrem (divrem.c:73)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C565B: __printf_fp_l (printf_fp.c:966)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BEA15: __mpn_divrem (divrem.c:79)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C565B: __printf_fp_l (printf_fp.c:966)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C4567: hack_digit (printf_fp.c:189)
+==2036765==    by 0x48C565B: __printf_fp_l (printf_fp.c:966)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C456B: hack_digit (printf_fp.c:190)
+==2036765==    by 0x48C565B: __printf_fp_l (printf_fp.c:966)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C4583: hack_digit (printf_fp.c:193)
+==2036765==    by 0x48C565B: __printf_fp_l (printf_fp.c:966)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C4598: hack_digit (printf_fp.c:193)
+==2036765==    by 0x48C565B: __printf_fp_l (printf_fp.c:966)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BF428: __mpn_mul_1 (mul_1.S:36)
+==2036765==    by 0x48C4516: hack_digit (printf_fp.c:204)
+==2036765==    by 0x48C565B: __printf_fp_l (printf_fp.c:966)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BF44C: __mpn_mul_1 (mul_1.S:52)
+==2036765==    by 0x48C4516: hack_digit (printf_fp.c:204)
+==2036765==    by 0x48C565B: __printf_fp_l (printf_fp.c:966)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C451A: hack_digit (printf_fp.c:205)
+==2036765==    by 0x48C565B: __printf_fp_l (printf_fp.c:966)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C452C: hack_digit (printf_fp.c:206)
+==2036765==    by 0x48C565B: __printf_fp_l (printf_fp.c:966)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C59B0: __printf_fp_l (printf_fp.c:978)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BE998: __mpn_divrem (divrem.c:62)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C59CA: __printf_fp_l (printf_fp.c:979)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BE99B: __mpn_divrem (divrem.c:63)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C59CA: __printf_fp_l (printf_fp.c:979)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48BE9AC: __mpn_divrem (divrem.c:65)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C59CA: __printf_fp_l (printf_fp.c:979)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BE9D0: __mpn_divrem (divrem.c:73)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C59CA: __printf_fp_l (printf_fp.c:979)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BE9DF: __mpn_divrem (divrem.c:73)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C59CA: __printf_fp_l (printf_fp.c:979)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BEA15: __mpn_divrem (divrem.c:79)
+==2036765==    by 0x48C4557: hack_digit (printf_fp.c:187)
+==2036765==    by 0x48C59CA: __printf_fp_l (printf_fp.c:979)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C4567: hack_digit (printf_fp.c:189)
+==2036765==    by 0x48C59CA: __printf_fp_l (printf_fp.c:979)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C456B: hack_digit (printf_fp.c:190)
+==2036765==    by 0x48C59CA: __printf_fp_l (printf_fp.c:979)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C4583: hack_digit (printf_fp.c:193)
+==2036765==    by 0x48C59CA: __printf_fp_l (printf_fp.c:979)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C4598: hack_digit (printf_fp.c:193)
+==2036765==    by 0x48C59CA: __printf_fp_l (printf_fp.c:979)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BF428: __mpn_mul_1 (mul_1.S:36)
+==2036765==    by 0x48C4516: hack_digit (printf_fp.c:204)
+==2036765==    by 0x48C59CA: __printf_fp_l (printf_fp.c:979)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48BF44C: __mpn_mul_1 (mul_1.S:52)
+==2036765==    by 0x48C4516: hack_digit (printf_fp.c:204)
+==2036765==    by 0x48C59CA: __printf_fp_l (printf_fp.c:979)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C451A: hack_digit (printf_fp.c:205)
+==2036765==    by 0x48C59CA: __printf_fp_l (printf_fp.c:979)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== 
+==2036765== More than 100 errors detected.  Subsequent errors
+==2036765== will still be recorded, but in less detail than before.
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C59EA: __printf_fp_l (printf_fp.c:981)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C6A28: __printf_fp_l (printf_fp.c:983)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C6A2C: __printf_fp_l (printf_fp.c:983)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C5A58: round_away (rounding-mode.h:52)
+==2036765==    by 0x48C5A58: __printf_fp_l (printf_fp.c:998)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C60B1: __printf_fp_l (printf_fp.c:1008)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C60DB: __printf_fp_l (printf_fp.c:1008)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C611E: __printf_fp_l (printf_fp.c:1028)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C5CD5: __printf_fp_l (printf_fp.c:1166)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C5F15: __printf_fp_l (printf_fp.c:1228)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C5EFB: __printf_fp_l (printf_fp.c:1230)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x484ED28: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2036765==    by 0x10BE05: updateBalance (bank.c:508)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Syscall param write(buf) points to uninitialised byte(s)
+==2036765==    at 0x497E8BF: __libc_write (write.c:26)
+==2036765==    by 0x497E8BF: write (write.c:24)
+==2036765==    by 0x10BE1F: updateBalance (bank.c:508)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765==  Address 0xb29fd7c is on thread 12's stack
+==2036765==  in frame #1, created by updateBalance (bank.c:486)
+==2036765== 
+==2036765== Use of uninitialised value of size 8
+==2036765==    at 0x48C452C: hack_digit (printf_fp.c:206)
+==2036765==    by 0x48C59CA: __printf_fp_l (printf_fp.c:979)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C5A5D: round_away (rounding-mode.h:52)
+==2036765==    by 0x48C5A5D: __printf_fp_l (printf_fp.c:998)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C60D2: __printf_fp_l (printf_fp.c:1008)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C62FA: __printf_fp_l (printf_fp.c:1031)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Conditional jump or move depends on uninitialised value(s)
+==2036765==    at 0x48C6328: __printf_fp_l (printf_fp.c:1034)
+==2036765==    by 0x48E092C: __printf_fp_spec (vfprintf-internal.c:354)
+==2036765==    by 0x48E092C: __vfprintf_internal (vfprintf-internal.c:1558)
+==2036765==    by 0x48EB988: __vsprintf_internal (iovsprintf.c:95)
+==2036765==    by 0x48CA927: sprintf (sprintf.c:30)
+==2036765==    by 0x10BDE7: updateBalance (bank.c:505)
+==2036765==    by 0x48FEAC2: start_thread (pthread_create.c:442)
+==2036765==    by 0x498FA03: clone (clone.S:100)
+==2036765== 
+==2036765== Thread 1:
+==2036765== Syscall param write(buf) points to uninitialised byte(s)
+==2036765==    at 0x497E8BF: __libc_write (write.c:26)
+==2036765==    by 0x497E8BF: write (write.c:24)
+==2036765==    by 0x48F4EEC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1180)
+==2036765==    by 0x48F69E0: new_do_write (fileops.c:448)
+==2036765==    by 0x48F69E0: _IO_new_do_write (fileops.c:425)
+==2036765==    by 0x48F69E0: _IO_do_write@@GLIBC_2.2.5 (fileops.c:422)
+==2036765==    by 0x48F5FD7: _IO_file_close_it@@GLIBC_2.2.5 (fileops.c:135)
+==2036765==    by 0x48E8D8E: fclose@@GLIBC_2.2.5 (iofclose.c:53)
+==2036765==    by 0x10B286: main (bank.c:257)
+==2036765==  Address 0xf646adb is 11 bytes inside a block of size 8,192 alloc'd
+==2036765==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2036765==    by 0x48E8BF4: _IO_file_doallocate (filedoalloc.c:101)
+==2036765==    by 0x48F7CDF: _IO_doallocbuf (genops.c:347)
+==2036765==    by 0x48F6F5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==2036765==    by 0x48F56D4: _IO_new_file_xsputn (fileops.c:1243)
+==2036765==    by 0x48F56D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==2036765==    by 0x48DFCA8: outstring_func (vfprintf-internal.c:239)
+==2036765==    by 0x48DFCA8: __vfprintf_internal (vfprintf-internal.c:1516)
+==2036765==    by 0x48CA6C9: fprintf (fprintf.c:32)
+==2036765==    by 0x10B262: main (bank.c:255)
+==2036765== 
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+applying reward
+continuing exection
+applying final reward
+applying final reward
+applying final reward
+applying final reward
+applying final reward
+applying final reward
+applying final reward
+applying final reward
+applying final reward
+applying final reward
+==2036780== 
+==2036780== HEAP SUMMARY:
+==2036780==     in use at exit: 0 bytes in 0 blocks
+==2036780==   total heap usage: 120,149 allocs, 120,149 frees, 6,505,283 bytes allocated
+==2036780== 
+==2036780== All heap blocks were freed -- no leaks are possible
+==2036780== 
+==2036780== For lists of detected and suppressed errors, rerun with: -s
+==2036780== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2036765== 
+==2036765== HEAP SUMMARY:
+==2036765==     in use at exit: 0 bytes in 0 blocks
+==2036765==   total heap usage: 890,257 allocs, 890,257 frees, 21,835,560 bytes allocated
+==2036765== 
+==2036765== All heap blocks were freed -- no leaks are possible
+==2036765== 
+==2036765== Use --track-origins=yes to see where uninitialised values come from
+==2036765== For lists of detected and suppressed errors, rerun with: -s
+==2036765== ERROR SUMMARY: 5150 errors from 118 contexts (suppressed: 0 from 0)

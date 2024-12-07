@@ -1,4 +1,4 @@
 account 9:
-Current Balance:			1582376.79
-Current Balance:			1991377.26
+Current Balance:			1554697.81
+Current Balance:			1997893.03
 Current Balance:			2011539.14

@@ -1,4 +1,4 @@
 account 0:
-Current Balance:			3983545.41
-Current Balance:			3137928.96
+Current Balance:			4000940.01
+Current Balance:			3122350.75
 Current Balance:			3111685.13

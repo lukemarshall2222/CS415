@@ -1,4 +1,4 @@
 account 8:
-Current Balance:			3295973.79
-Current Balance:			2834433.03
+Current Balance:			3261070.68
+Current Balance:			2797943.75
 Current Balance:			2788273.79
